@@ -1,0 +1,48 @@
+---
+title: "Group Project Plan"
+author: "M. Lewis, P. Magee, M. Willis, and E. Wong"
+format: html
+editor: visual
+---
+
+```{r message=FALSE}
+library(tidyverse)
+```
+
+# Project Title:
+
+Predicting the Allocation of Paycheck Protection Program (PPP) Loans
+
+# Group Members
+
+-   Michael Lewis
+
+-   Peter Magee
+
+-   Margaret Willis
+
+-   Ethan Wong
+
+# Topic
+
+Using a data set tracking PPP loans, we seek to develop and tune models that predict whether a loan will be issued.
+
+# Questions of Interest
+
+### Regression:
+
+-   Assess the relationship between.....I haven't looked at the data set yet....
+
+### Classification: 
+
+-   What methods have the lowest MSE for the correct prediction of whether loans will be issued?
+
+# Approaches
+
+-   I am thinking we mention a few methods and what we hope to attain in using them?
+
+# Group Responsibilities
+
+# Deliverable
+
+-   I believe we said a poster.
