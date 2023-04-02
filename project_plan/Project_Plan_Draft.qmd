@@ -1,0 +1,70 @@
+---
+title: "Group Project Plan"
+author: "M. Lewis, P. Magee, M. Willis, and E. Wong"
+format: pdf
+editor: visual
+bibliography: citations.bib
+csl: chicago-author-date.csl
+---
+
+```{r, include = FALSE}
+library(tidyverse)
+```
+
+# Project Title:
+
+Predicting the Foregiveness of Paycheck Protection Program (PPP) Loans in Washington, DC.
+
+# Group Members
+
+-   Michael Lewis (427)
+
+-   Peter Magee (627)
+
+-   Margaret Willis (427)
+
+-   Ethan Wong (427)
+
+# Topic
+
+Using publicly available data on PPP loans for business in DC, we seek to develop models that will explore/predict what factors were important for loan forgiveness -- and if so by how much -- and whether these things can be used to predict whether a loan was forgiven.
+
+Below is what our dataset looks like.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+read_csv("PPP details.csv") -> dc
+dc %>% head()
+```
+
+# Questions of Interest
+
+Throughout the COVID-19 pandemic, an estimated \$525 Billion USD was disbursed as part of the federal government's Paycheck Protection Program (PPP) @house_fact_2022. These loans, while crucial for protecting American industry and the workforce, have been met with allegations of fraud and controversy -- in some cases spurring litigation @pfeiffer_how_2023. Today, the vast majority of the loans have been forgiven @pfeiffer_how_2023 @noauthor_firms_2021. Analyzing this load data presents an opportunity to better understand (1) what business characteristics are associated with higher loan amounts, (2) what factors led to loan forgiveness -- and whether the amount forgiven varied based on these things, and finally (3) whether ML techniques can be used to predict whether a loan was forgiven off these considerations.
+
+### Regression:
+
+-   Assess the relationship between `Amount forgiven` and other variables like `Rent`, `Jobs reported`, `Business type`, `Industry`, `Age of business`, `Utilities`, etc.
+
+### Classification:
+
+-   What methods have the lowest MSE for the correct prediction of whether loans were forgiven or not.
+
+# Approaches
+
+-   We propose using logistic regression, KNN, LDA, QDA to predict whether a loan was forgiven in whole or not.
+-   We also propose using linear regression (with cross-validation) to quantify the numerical effect of business characteristics on amount forgiven.
+
+# Group Responsibilities
+
+-   Maintain/submit Github
+
+-   Maybe one person who reaches out to professor whenever we have a question?
+
+-   Formatting poster (assuming we wish to go that route).
+
+-   Assuming how many/which strategies we want to use i figure we can each take one or two.
+
+# Deliverable
+
+-   Our final deliverable will be in the poster format.
+
+# References
