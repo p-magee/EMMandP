@@ -46,7 +46,7 @@ Throughout the COVID-19 pandemic, an estimated \$525 Billion USD was disbursed a
 
 ### Classification:
 
--   What methods have the lowest MSE for the correct prediction of whether loans were forgiven or not.
+-   Can we predict the `Amount Foregiveness` in PPP loans using variables such as `Rent`, `Jobs reported`, `Business Type`, etc.?
 
 # Approaches
 
@@ -55,13 +55,21 @@ Throughout the COVID-19 pandemic, an estimated \$525 Billion USD was disbursed a
 
 # Group Responsibilities
 
+-   We will work collaboratively to maintain Github repository. This will allow us to work, track, and consider edits to writing, code and formatting of all work.
+
 -   Tidy and clean data prior to analysis (Michael and Pete).
 
--   Serve as point of contact for reaching out to Professor Ressler (Margaret)
+-   Serve as point of contact for reaching out to Professor Ressler (Margaret).
 
--   Formatting poster (assuming we wish to go that route).
+-   Formatting and designing poster (collaborative).
 
--   We will each select an SML strategy.
+-   Leverage SML tools to analyse data in service to answering the outlined questions (collaborative).
+
+-   Executive Summary (Pete).
+
+-   Writing about selection of data and any in cleaning the data set (Michael).
+
+-   Identification and description of stakeholders and ethical consideration (Ethan).
 
 # Deliverable
 
