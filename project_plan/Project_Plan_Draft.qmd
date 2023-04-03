@@ -13,7 +13,7 @@ library(tidyverse)
 
 # Project Title:
 
-Predicting the Foregiveness of Paycheck Protection Program (PPP) Loans in Washington, DC.
+Predicting the Forgiveness of Paycheck Protection Program (PPP) Loans in Washington, DC.
 
 # Group Members
 
@@ -21,7 +21,7 @@ Predicting the Foregiveness of Paycheck Protection Program (PPP) Loans in Washin
 
 -   Peter Magee (627)
 
--   Margaret Willis (427)
+-   Margaret Willis (627)
 
 -   Ethan Wong (427)
 
@@ -42,7 +42,7 @@ Throughout the COVID-19 pandemic, an estimated \$525 Billion USD was disbursed a
 
 ### Regression:
 
--   Assess the relationship between `Amount forgiven` and other variables like `Rent`, `Jobs reported`, `Business type`, `Industry`, `Age of business`, `Utilities`, etc.
+-   How can we assess the relationship between `Amount forgiven` and other variables like `Rent`, `Jobs reported`, `Business type`, `Industry`, `Age of business`, `Utilities`, etc.?
 
 ### Classification:
 
@@ -55,13 +55,13 @@ Throughout the COVID-19 pandemic, an estimated \$525 Billion USD was disbursed a
 
 # Group Responsibilities
 
--   Maintain/submit Github
+-   Tidy and clean data prior to analysis (Michael and Pete).
 
--   Maybe one person who reaches out to professor whenever we have a question?
+-   Serve as point of contact for reaching out to Professor Ressler (Margaret)
 
 -   Formatting poster (assuming we wish to go that route).
 
--   Assuming how many/which strategies we want to use i figure we can each take one or two.
+-   We will each select an SML strategy.
 
 # Deliverable
 
