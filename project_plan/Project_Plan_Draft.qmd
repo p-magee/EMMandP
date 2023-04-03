@@ -55,13 +55,11 @@ Throughout the COVID-19 pandemic, an estimated \$525 Billion USD was disbursed a
 
 # Group Responsibilities
 
--   Maintain/submit Github
+-   Maintain/submit Github, using branching.
 
--   Maybe one person who reaches out to professor whenever we have a question?
+-   Periodic check-ins to track progress and divide the work.
 
--   Formatting poster (assuming we wish to go that route).
-
--   Assuming how many/which strategies we want to use i figure we can each take one or two.
+-   Formatting poster.
 
 # Deliverable
 
