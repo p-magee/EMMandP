@@ -13,7 +13,7 @@ library(tidyverse)
 
 # Project Title:
 
-Predicting the Foregiveness of Paycheck Protection Program (PPP) Loans in Washington, DC.
+Predicting the Forgiveness of Paycheck Protection Program (PPP) Loans in Washington, DC.
 
 # Group Members
 
@@ -21,7 +21,7 @@ Predicting the Foregiveness of Paycheck Protection Program (PPP) Loans in Washin
 
 -   Peter Magee (627)
 
--   Margaret Willis (427)
+-   Margaret Willis (627)
 
 -   Ethan Wong (427)
 
@@ -42,11 +42,11 @@ Throughout the COVID-19 pandemic, an estimated \$525 Billion USD was disbursed a
 
 ### Regression:
 
--   Assess the relationship between `Amount forgiven` and other variables like `Rent`, `Jobs reported`, `Business type`, `Industry`, `Age of business`, `Utilities`, etc.
+-   How can we assess the relationship between `Amount forgiven` and other variables like `Rent`, `Jobs reported`, `Business type`, `Industry`, `Age of business`, `Utilities`, etc.?
 
 ### Classification:
 
--   What methods have the lowest MSE for the correct prediction of whether loans were forgiven or not.
+-   Can we predict the `Amount Foregiveness` in PPP loans using variables such as `Rent`, `Jobs reported`, `Business Type`, etc.?
 
 # Approaches
 
@@ -55,11 +55,23 @@ Throughout the COVID-19 pandemic, an estimated \$525 Billion USD was disbursed a
 
 # Group Responsibilities
 
--   Maintain/submit Github, using branching.
+We will be using the shared repository workflow method. We have agreed to meet each week to discuss the responsibilities and sections that each member will be working on for that week to in order to deconflict. We have all communicated that we will be diligent to use `git pull` when we begin working and to create branches when we are making any changes. Before merging, we will also use pull requests to discuss and review the changes as a team. We will also use the issues tab on GitHub to communicate potential areas for revision. In order to track our workflow, we will not delete the branches and will include comments on individual contributions.
 
--   Periodic check-ins to track progress and divide the work.
+In addition to what was outlined above we have divided the following tasks accordingly. We will revisit and tune these roles as needed:
 
--   Formatting poster.
+-   Tidy and clean data prior to analysis (Michael and Pete).
+
+-   Serve as point of contact for reaching out to Professor Ressler (Margaret).
+
+-   Formatting and designing poster (collaborative).
+
+-   Leverage SML tools to analyse data in service to answering the outlined questions (collaborative).
+
+-   Executive Summary (Pete).
+
+-   Writing about selection of data and any in cleaning the data set (Michael).
+
+-   Identification and description of stakeholders and ethical consideration (Ethan).
 
 # Deliverable
 
