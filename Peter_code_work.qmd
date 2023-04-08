@@ -1,0 +1,58 @@
+---
+title: "Peter code work"
+format: html
+editor: visual
+---
+
+```{r message=FALSE}
+library(tidyverse)
+library(car)
+library(class)
+```
+
+```{r message=FALSE}
+getwd()
+
+ppp <- read_csv("PPP details.csv")
+```
+
+```{r}
+# Cleaning
+unique(ppp$`*Loan Status`)
+colnames(ppp)
+glimpse(ppp)
+ppp_2 <- ppp %>%
+  na.omit() %>% # Drop NA's
+  mutate(delta = ifelse(`Loan amount` - `Amount forgiven` <= 0, 1, 0)) #Coerce a categorical variable to help with prediction.
+glimpse(ppp_2$delta[-Z])
+ppp_2$delta <- as.numeric(as.factor(ppp_2$delta))
+?cut()
+```
+
+# KNN
+
+```{r}
+set.seed(1234)
+training_pct <- .70
+# with over 25k observations this leaves about 7,500 for testing
+Z = sample(nrow(ppp_2), floor(training_pct*nrow(ppp_2)))
+
+Xtrain = ppp_2[Z,] # Our training set X
+Ytrain = ppp_2$delta[Z] # Our training set y
+Xtest = ppp_2[-Z,]
+Ytest = ppp_2$delta[-Z]
+
+# Initialize data
+err_class <- rep(1:100)
+tpr <- rep(1:100)
+fpr <- rep(1:100)
+# run the loop
+for (k in 1:100){ # There is something wrong in here.....
+Yhat <- knn(Xtrain, Xtest, Ytrain, k = k)
+err_class[k] <- mean(Yhat != Ytest) # The prediction is not correct
+tpr[k] <- sum(Yhat == 1 & Ytest == 1) / sum(Ytest == 1) # TP/P
+fpr[k] <- sum(Yhat == 1 & Ytest == 1) / sum(Ytest == 1) # FP/N
+}
+ggplot(tibble(err_class, k = 1:100), aes(x = k, y = err_class))
+geom_line()
+```
