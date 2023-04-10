@@ -55,7 +55,7 @@ Throughout the COVID-19 pandemic, an estimated \$525 Billion USD was disbursed a
 
 # Group Responsibilities
 
-We will be using the shared repository workflow method. We have agreed to meet each week to discuss the responsibilities and sections that each member will be working on for that week to in order to deconflict. We have all communicated that we will be diligent to use `git pull` when we begin working and to create branches when we are making any changes. Before merging, we will also use pull requests to discuss and review the changes as a team. We will also use the issues tab on GitHub to communicate potential areas for revision. In order to track our workflor, we will not delete the branches and will include comments on individual contributions.
+We will be using the shared repository workflow method. We have agreed to meet each week to discuss the responsibilities and sections that each member will be working on for that week to in order to deconflict. We have all communicated that we will be diligent to use `git pull` when we begin working and to create branches when we are making any changes. Before merging, we will also use pull requests to discuss and review the changes as a team. We will also use the issues tab on GitHub to communicate potential areas for revision. In order to track our workflow, we will not delete the branches and will include comments on individual contributions.
 
 In addition to what was outlined above we have divided the following tasks accordingly. We will revisit and tune these roles as needed:
 
