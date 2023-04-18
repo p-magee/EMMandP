@@ -27,10 +27,18 @@ ppp_2 <- ppp %>%
   na.omit() %>% # Drop NA's
   mutate(delta = ifelse(`Loan amount` - `Amount forgiven` <= 0, 1, 0)) %>% #Coerce a categorical variable to help with prediction.
   select(Payroll, Rent, Utilities, `Health Care`, `Mortgage Interest`, `Debt Interest`, `Jobs reported`, delta, Borrower)
-glimpse(ppp_2)
+glimpse(ppp_2$delta)
 
+summary(ppp$`Debt Interest`)
+qplot(`Amount forgiven`, data = ppp, geom = "auto")
+qplot(delta, data = ppp_2, geom = "auto")
+qplot(`*Loan Status`, data = ppp_2, geom = "auto")
+qplot(`Loan amount`, `Lender name`, data = ppp, geom = "auto")
+qplot(`Business type`, data = ppp_2, geom = "auto")
+table(ppp$Industry)
+table(ppp$`Business type`)
 # ppp_2$delta <- as.numeric(as.factor(ppp_2$delta))
- str(ppp_2)
+str(ppp_2)
 ```
 
 # Linear Regression
