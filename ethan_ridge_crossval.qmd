@@ -1,0 +1,38 @@
+---
+title: "Ridge Regression"
+format: html
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+ppp <- read_csv("PPP details.csv")
+glimpse(ppp)
+```
+
+```{r}
+ppp <- ppp |>
+  select(`Loan amount`, 
+         `Amount forgiven`, 
+         Payroll, 
+         Rent, 
+         Utilities, 
+         `Health Care`, 
+         `Mortgage Interest`, 
+         `Debt Interest`, 
+         `Refinancing EIDL`, 
+         `Business type`, 
+         Industry, 
+         `Age of business`, 
+         `Borrower zip`, 
+         `Jobs reported`, 
+         Gender, Race) |>
+  mutate(Industry = as_factor(Industry),
+         `Age of business` = as_factor(`Age of business`),
+         `Business type` = as_factor(`Business type`),
+         Gender = as_factor(Gender),
+         Race = as_factor(Race)) |>
+  na.omit()
+
+glimpse(ppp)
+```
