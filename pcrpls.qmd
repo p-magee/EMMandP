@@ -27,7 +27,7 @@ ppp_2 <- ppp %>%
 glimpse(ppp_2)
 
 ppp_3 <- ppp %>%
-  na.omit() %>% # Drop NA's
+  na.omit()  # Drop NA's
   
 
 
@@ -55,7 +55,7 @@ lr_pred <- predict(lr, s = best_lambda_lr, newx = x_test)
 mean((lr_pred - y_test)^2)
 ```
 
-# PCR 
+# PCR
 
 ```{r}
 skimr::skim(ppp)
@@ -81,6 +81,12 @@ summary(pcr_reg2)
 #no lender names
 ```
 
+```{r}
+validationplot(pcr_reg2)
+```
+
+Using PRC the model with 25 components (not predictors becasue of the incorporation of categorical varibles)has the lowest MSRE of which explains 58.71% of the variation in the amount of the loan forgiven.
+
 PLS
 
 ```{r}
@@ -89,3 +95,9 @@ pls_reg <- plsr(`Amount forgiven` ~ `*Loan Status`+ `Date approved`+ `Date forgi
                 validation = "CV")
 summary(pls_reg)
 ```
+
+```{r}
+validationplot(pls_reg)
+```
+
+Using PLS the model with 25 components (not predictors because of the incorporation of categorical variables)has the lowest MSRE of 42836 but I would recommend the model with only 11 components as this has a MSRE of 42837 and explains more of the variation in loan forgiveness (98.53%).
