@@ -67,3 +67,9 @@ lasso_ppp$lambda.min
 min(lasso_ppp$cvm)
 coef(lasso_ppp)
 ```
+
+```{r}
+set.seed(1234)
+pcr_ppp <-  pcr(`Amount forgiven` ~ ., data = ppp, validation = "CV")
+summary(pcr_ppp)
+```
