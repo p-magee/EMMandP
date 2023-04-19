@@ -83,7 +83,7 @@ coef(lasso_ppp)
 
 ```{r}
 set.seed(1234)
-pcr_ppp <-  pcr(`Amount forgiven` ~ ., data = ppp, scale = T, validation = "CV")
+pcr_ppp <-  pcr(`Amount forgiven` ~ ., data = ppp, validation = "CV")
 #summary(pcr_ppp)
 screeplot(prcomp(model.matrix(lm(`Amount forgiven` ~ ., data = ppp))))
 which.min(as.numeric(MSEP(pcr_ppp, estimate = "CV")$val)) - 1
