@@ -26,7 +26,7 @@ glimpse(ppp)
 ppp_2 <- ppp %>%
   na.omit() %>% # Drop NA's
   mutate(delta = ifelse(`Loan amount` - `Amount forgiven` <= 0, 1, 0)) %>% #Coerce a categorical variable to help with prediction.
-  select(Payroll, Rent, Utilities, `Health Care`, `Mortgage Interest`, `Debt Interest`, `Jobs reported`, delta, Borrower)
+  select(Payroll, Rent, Utilities, `Health Care`, `Mortgage Interest`, `Debt Interest`, `Jobs reported`, delta, Borrower, `Business type`)
 glimpse(ppp_2$delta)
 
 summary(ppp$`Debt Interest`)
@@ -39,26 +39,52 @@ table(ppp$Industry)
 table(ppp$`Business type`)
 # ppp_2$delta <- as.numeric(as.factor(ppp_2$delta))
 str(ppp_2)
+
+ppp_2 %>% 
+  filter(`Business type` == "Tribal Concerns")
 ```
 
-# Linear Regression
+# Linear Regression (ML)
+
+```{r message=FALSE}
+df <- read_csv("project_plan/PPP details.csv")
+# Data Cleaning
+df %>% 
+  select(`Loan amount`, `Amount forgiven`, Payroll, Rent, Utilities, 
+         `Health Care`, `Mortgage Interest`, `Debt Interest`, `Refinancing EIDL`,
+         `Business type`, Industry, `Age of business`, `Jobs reported`, Gender,
+         Race) %>% 
+  mutate(Industry = as_factor(Industry),
+         `Age of business` = as_factor(`Age of business`),
+         Gender = as_factor(Gender),
+         Race = as_factor(Race)) %>% 
+  na.omit() -> df2
+```
 
 ```{r}
-set.seed(123)
-x_train <- stats::model.matrix(lm(delta ~ ., data = ppp_2[Z, ]))
-y_train <- ppp_2$delta[Z]
-x_test <-  stats::model.matrix(lm(delta ~ ., data = ppp_2[-Z, ]))                  
-y_test <- ppp_2$delta[-Z]
+# Setpwise selection
+library(leaps)
+set.seed(2023)
+reg_full <- lm(`Amount forgiven` ~., data = df2)
+reg_null <- lm(`Amount forgiven` ~1, data = df2)
+step_out <- step(reg_null, 
+                 scope = list(lower = reg_null, upper = reg_full),
+                 method = "forward")
+summary(step_out)
+```
 
-lr <- glmnet::glmnet(x_train, y_train) 
-lr_cv <- glmnet::cv.glmnet(x_train, y_train)
-best_lambda_lr <- lr_cv$lambda.1se
-plot(lr_cv)
-coef(lr_cv)
+```{r}
+# LM model using CV
+set.seed(2023)
+lm(`Amount forgiven` ~ `Loan amount` + `Mortgage Interest` + 
+    `Jobs reported` + Rent + `Health Care` + Payroll, 
+    data = df2) -> lm_cv
+mse = mean(lm_cv$residuals^2)
+summary(lm_cv)
+mse # huge error
 
-# Lasso Regression Prediction MSE
-lr_pred <- predict(lr, s = best_lambda_lr, newx = x_test)
-mean((lr_pred - y_test)^2)
+mean(df2$`Amount forgiven`)
+
 ```
 
 # KNN
@@ -94,3 +120,16 @@ geom_line()
 # Logistics Regression
 
 # LDA/QDA
+
+# Tree
+
+```{r}
+library(tree)
+```
+
+```{r}
+ppp_clean <-  ppp %>% 
+  select(Borrower, Payroll, Utilities,  Industry)
+tree_final <- tree(Industry ~ ., data = ppp_clean)
+tree_final
+```
