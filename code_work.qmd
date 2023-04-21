@@ -66,13 +66,31 @@ ppp_2a <- ppp %>%
   )) %>% na.omit()
 
 ppp_2a
-qplot(data = ppp_2a, type_mod, geom = "auto")
+qplot(data = df2, type_mod, geom = "auto")
 
 type_nfp <- c("501(c)3 – Non Profit", "501(c)6 – Non Profit Membership", "Non-Profit Childcare Center", "Non-Profit Organization", "Professional Association", "Housing Co-op", "Cooperative")
 
 type_fpg <- c("Corporation", "Limited  Liability Company(LLC)", "Limited Liability Partnership", "Qualified Joint-Venture (spouses)", "Subchapter S Corporation", "Tribal Concerns", "Joint Venture", "Trust")
 
 type_fpi <- c("Independent contractors", "Single Member LLC", "Sole Proprietorship", "Self-Employed Individuals")
+```
+
+# Descriptive Stats
+
+```{r}
+# For-profit amount forgiven
+ds <- df2 %>% filter(type_mod == "For-profit, group" | type_mod == "For-profit, Inividual")
+sum(ds$Amount_forgiven)
+nrow(ds)
+
+average_forgiven_prof <- 2146094075 / 20727
+average_forgiven_prof # = 103,541
+# Non-profit amount forgiven
+ds_1 <- df2 %>% filter(type_mod == "Non-Profit")
+sum(ds_1$Amount_forgiven)
+nrow(ds_1)
+average_forgiven_non <- 829725575 / 2951
+average_forgiven_non # =  281,167.6
 ```
 
 # Linear Regression (ML)
@@ -179,7 +197,7 @@ df <- ppp %>%
     `Business type` == "Self-Employed Individuals" ~ "For-profit, Inividual"
   )) %>%
   select(
-    `Loan amount`, `Amount forgiven`, Payroll, Rent, Utilities,
+    `Amount forgiven`, Payroll, Rent, Utilities,
     `Health Care`, `Mortgage Interest`, `Debt Interest`, `Refinancing EIDL`,
     `Business type`, Industry, `Age of business`, `Jobs reported`, Gender,
     Race, type_mod, `Date approved`, `Date forgiven`, `Borrower zip`) %>%
@@ -225,4 +243,24 @@ cv_tree_ppp$size[which.min(cv_tree_ppp$dev)]
 new_tree <- prune.tree(tree_final, best = 5)
 plot(new_tree)
 text(new_tree)
+```
+
+```{r}
+summary(tree_final)
+```
+
+```{r}
+# install.packages("rpart.plot")
+library(rpart.plot)
+# install.packages("rpart")
+library(rpart)
+trp <- rpart(type_mod ~ Industry + `Jobs_reported`, data = df2)
+rpart.plot(trp)
+```
+
+```{r}
+# Create a validation set to cheeck performance
+set.seed(2023)
+Z <- sample(nrow(df2), 0.75*nrow(df2))
+
 ```
