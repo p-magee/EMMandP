@@ -78,6 +78,7 @@ type_fpi <- c("Independent contractors", "Single Member LLC", "Sole Proprietorsh
 # Descriptive Stats
 
 ```{r}
+range(df2$Jobs_reported)
 # For-profit amount forgiven
 ds <- df2 %>% filter(type_mod == "For-profit, group" | type_mod == "For-profit, Inividual")
 sum(ds$Amount_forgiven)
@@ -91,6 +92,40 @@ sum(ds_1$Amount_forgiven)
 nrow(ds_1)
 average_forgiven_non <- 829725575 / 2951
 average_forgiven_non # =  281,167.6
+```
+
+We can see that these data contain 2,951 instance of a company receiving a PPP loan is consider 'Non-profit'. On average, \$281,168 were forgiven to a company labeled as such. For comparison's sake, 20,727 instances of For-profit companies receiving PPP loans with an average amount forgiven of \$103,541.
+
+```{r}
+# Number of loans forgiven for each type
+data <- data.frame(
+  category = c("Non-profit", "For-profit"),
+  amount = c(2951, 20727)
+)
+
+data$fraction <- data$amount / sum(data$amount)
+data$ymax <- cumsum(data$fraction)
+data$ymin <- c(0, head(data$ymax, n = -1))
+
+ggplot(data, aes(ymax = ymax, ymin = ymin, xmax = 4, xmin = 3, fill = category)) +
+  geom_rect() +
+  coord_polar(theta = "y") +
+  xlim(c(1, 4))
+# Dollar amount forgiven for each type
+
+data_2 <- data.frame(
+  category = c("Non-profit", "For-profit"),
+  amount = c(829725575, 2146094075)
+)
+
+data_2$fraction <- data_2$amount / sum(data_2$amount)
+data_2$ymax <- cumsum(data_2$fraction)
+data_2$ymin <- c(0, head(data_2$ymax, n = -1))
+
+ggplot(data_2, aes(ymax = ymax, ymin = ymin, xmax = 4, xmin = 3, fill = category)) +
+  geom_rect() +
+  coord_polar(theta = "y") +
+  xlim(c(1, 4))
 ```
 
 # Linear Regression (ML)
@@ -247,19 +282,12 @@ text(new_tree)
 
 ```{r}
 summary(tree_final)
+tree_alt <- tree(type_mod ~ Industry + Jobs_reported, data = df2)
+tree_alt
 ```
 
 ```{r}
-# install.packages("rpart.plot")
-library(rpart.plot)
-# install.packages("rpart")
-library(rpart)
-trp <- rpart(type_mod ~ Industry + `Jobs_reported`, data = df2)
-rpart.plot(trp)
-```
-
-```{r}
-# Create a validation set to cheeck performance
+# Create a validation set to check performance
 set.seed(2023)
 Z <- sample(nrow(df2), 0.75*nrow(df2))
 
