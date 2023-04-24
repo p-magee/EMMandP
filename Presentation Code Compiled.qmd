@@ -1,0 +1,216 @@
+---
+title: "Presentation Code Compiled"
+format: html
+editor: visual
+---
+
+## Data
+
+```{r packages message=FALSE}
+library(tidyverse)
+library(car)
+library(class)
+library(leaps)
+library(glmnet)
+library(pls)
+```
+
+```{r load message=FALSE}
+ppp <- read_csv("PPP details.csv")
+glimpse(ppp)
+```
+
+### Cleaning
+
+```{r cleaning}
+df <- ppp %>%
+  mutate(type_mod = case_when(
+    `Business type` == "501(c)3 – Non Profit" ~ "Non-Profit",
+    `Business type` == "501(c)6 – Non Profit Membership" ~ "Non-Profit",
+    `Business type` == "Non-Profit Childcare Center" ~ "Non-Profit",
+    `Business type` == "Non-Profit Organization" ~ "Non-Profit",
+    `Business type` == "Professional Association" ~ "Non-Profit",
+    `Business type` == "Housing Co-op" ~ "Non-Profit",
+    `Business type` == "Cooperative" ~ "Non-Profit",
+    `Business type` == "Corporation" ~ "For-profit, group",
+    `Business type` == "Limited  Liability Company(LLC)" ~ "For-profit, group",
+    `Business type` == "Limited Liability Partnership" ~ "For-profit, group",
+    `Business type` == "Qualified Joint-Venture (spouses)" ~ "For-profit, group",
+    `Business type` == "Subchapter S Corporation" ~ "For-profit, group",
+    `Business type` == "Tribal Concerns" ~ "For-profit, group",
+    `Business type` == "Joint Venture" ~ "For-profit, group",
+    `Business type` == "Trust" ~ "For-profit, group",
+    `Business type` == "Independent contractors" ~ "For-profit, Inividual",
+    `Business type` == "Single Member LLC" ~ "For-profit, Inividual",
+    `Business type` == "Sole Proprietorship" ~ "For-profit, Inividual",
+    `Business type` == "Self-Employed Individuals" ~ "For-profit, Inividual"
+  )) %>%
+  select(
+    `Amount forgiven`, Payroll, Rent, Utilities,
+    `Health Care`, `Mortgage Interest`, `Debt Interest`, `Refinancing EIDL`,
+    `Business type`, Industry, `Age of business`, `Jobs reported`, Gender,
+    Race, type_mod, `Date approved`, `Date forgiven`, `Borrower zip`) %>%
+  mutate(
+    type_mod = as_factor(type_mod),
+    Industry = as_factor(Industry),
+    `Age of business` = as_factor(`Age of business`),
+    Gender = as_factor(Gender),
+    Race = as_factor(Race),
+    `Borrower zip` = as.factor(str_remove(`Borrower zip`, "-.+"))
+  ) %>%
+  na.omit()
+names(df) <-  stringr::str_replace_all(names(df), " ", "_")
+glimpse(df)
+car::vif(lm(Amount_forgiven ~ . -Business_type, df))
+car::vif(lm(Amount_forgiven ~ . -type_mod, df))
+```
+
+### Exploration
+
+```{r explore}
+df |>
+  ggplot(aes(x = type_mod)) +
+    geom_bar()
+
+#remove 3 variables b/c too many levels
+#GGally::ggpairs(df %>% select(-Business_type, -Industry, -Borrower_zip))
+
+for (i in colnames(df)[1:8]) {
+  plot <- df |>
+    ggplot(aes(x = i)) +
+      geom_histogram()
+  print(plot)
+}
+
+df |>
+  ggplot(aes(x = type_mod, y = Health_Care)) +
+    geom_boxplot()
+```
+
+## Regression
+
+### Stepwise
+
+```{r stepwise}
+#forward using business type
+set.seed(1234)
+reg_full <- lm(Amount_forgiven ~ . - type_mod, data = df)
+reg_null <- lm(Amount_forgiven ~ 1, data = df)
+step_out_f <- step(reg_null, 
+                   scope = list(lower = reg_null, upper = reg_full),
+                   method = "forward",
+                   trace = 0)
+
+#forward using type_mod
+set.seed(1234)
+reg_full <- lm(Amount_forgiven ~ . - Business_type, data = df)
+reg_null <- lm(Amount_forgiven ~ 1, data = df)
+step_out_f2 <- step(reg_null, 
+                    scope = list(lower = reg_null, upper = reg_full),
+                    method = "forward",
+                    trace = 0)
+
+#forward results
+summary(step_out_f)
+summary(step_out_f2)
+```
+
+```{r stepwise_mse}
+
+set.seed(1234)
+reg_k10 <- glm(Amount_forgiven ~ Payroll + Rent + Utilities + Health_Care + Debt_Interest + Mortgage_Interest + Jobs_reported + type_mod + Date_forgiven + Date_approved, data = df)
+regCVk10 <- boot::cv.glm(df, reg_k10, K = 10)
+regCVk10$delta[2]
+```
+
+### LASSO and Ridge
+
+```{r ridge}
+X <- model.matrix(lm(Amount_forgiven ~ . - Business_type, df))[,-1]
+
+set.seed(1234)
+ridge_ppp <- cv.glmnet(X, df$Amount_forgiven, alpha = 0)
+plot(ridge_ppp)
+ridge_ppp$lambda.min
+min(ridge_ppp$cvm)
+```
+
+```{r lasso}
+set.seed(1234)
+lasso_ppp <- cv.glmnet(X, df$Amount_forgiven, alpha = 1)
+plot(lasso_ppp)
+lasso_ppp$lambda.1se
+min(lasso_ppp$cvm)
+```
+
+### PCR and PLS
+
+Ask professor about these errors
+
+```{r pca}
+#screeplot
+screeplot(
+  prcomp(
+    model.matrix(lm(Amount_forgiven ~ . - Business_type, data = df))
+  )
+) #indicates need to scale
+
+#PCR
+names(df) <-  stringr::str_replace_all(names(df), " ", "_")
+set.seed(1234)
+pcr_ppp <-  pcr(Amount_forgiven ~ ., 
+                data = df %>% select(-Business_type), 
+                scale = TRUE,
+                validation = "CV")
+#summary(pcr_ppp)
+which.min(as.numeric(MSEP(pcr_ppp, estimate = "CV")$val)) - 1
+min(as.numeric(MSEP(pcr_ppp, estimate = "CV")$val))
+
+#PLS
+set.seed(1234)
+pls_ppp <-  plsr(Amount_forgiven ~ ., 
+                data = df %>% select(-Business_type),
+                scale = TRUE,
+                validation = "CV")
+summary(pls_ppp)
+which.min(as.numeric(MSEP(pls_ppp, estimate = "CV")$val)) - 1
+min(as.numeric(MSEP(pls_ppp, estimate = "CV")$val))
+```
+
+```{r}
+#pcr using prcomp due to error
+pcr_matrix <- model.matrix(lm(Amount_forgiven ~ . - Business_type, 
+                                 data = df))
+pc <- stats::prcomp(pcr_matrix[,-1], scale = TRUE)
+screeplot(pc)
+summary(pc)
+```
+
+### Comparing MSEs
+
+| Method   | Prediction MSE | Predictors |
+|----------|----------------|------------|
+| Stepwise | 2106947766     | 11         |
+| Ridge    | 3975936542     | 115        |
+| LASSO    | 2129772087     | 10         |
+| PCR      |                |            |
+| PLS      |                |            |
+
+## Classification
+
+## LDA and QDA
+
+```{r qda}
+ggplot(df, aes(x = Payroll, y = Jobs_reported, color = type_mod)) +
+  geom_point()
+
+df |>
+  filter(type_mod == "Non-Profit") |>
+  summary()
+
+df |>
+  filter(type_mod == "For-profit, group") |>
+  summary()
+
+qda_ppp <-  MASS::qda(type_mod ~ . - Business_type, data = df, CV = TRUE)
+```
