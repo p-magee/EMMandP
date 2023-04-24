@@ -59,10 +59,10 @@ ppp_2a <- ppp %>%
     `Business type` == "Tribal Concerns" ~ "For-profit, group",
     `Business type` == "Joint Venture" ~ "For-profit, group",
     `Business type` == "Trust" ~ "For-profit, group",
-    `Business type` == "Independent contractors" ~ "For-profit, Inividual",
-    `Business type` == "Single Member LLC" ~ "For-profit, Inividual",
-    `Business type` == "Sole Proprietorship" ~ "For-profit, Inividual",
-    `Business type` == "Self-Employed Individuals" ~ "For-profit, Inividual"
+    `Business type` == "Independent contractors" ~ "For-profit, Individual",
+    `Business type` == "Single Member LLC" ~ "For-profit, Individual",
+    `Business type` == "Sole Proprietorship" ~ "For-profit, Individual",
+    `Business type` == "Self-Employed Individuals" ~ "For-profit, Individual"
   )) %>% na.omit()
 
 ppp_2a
@@ -80,7 +80,7 @@ type_fpi <- c("Independent contractors", "Single Member LLC", "Sole Proprietorsh
 ```{r}
 range(df2$Jobs_reported)
 # For-profit amount forgiven
-ds <- df2 %>% filter(type_mod == "For-profit, group" | type_mod == "For-profit, Inividual")
+ds <- df2 %>% filter(type_mod == "For-profit, group" | type_mod == "For-profit, Individual")
 sum(ds$Amount_forgiven)
 nrow(ds)
 
