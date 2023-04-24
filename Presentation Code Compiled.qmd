@@ -87,6 +87,10 @@ summary(step_out_f)
 summary(step_out_f2)
 ```
 
-```{r}
+```{r stepwise_mse}
 
+set.seed(1234)
+reg_k10 <- glm(Amount_forgiven ~ Payroll + Rent + Utilities + Health_Care + Debt_Interest + Mortgage_Interest + Jobs_reported + type_mod + Date_forgiven + Date_approved, data = df)
+regCVk10 <- boot::cv.glm(df, reg_k10, K = 10)
+regCVk10$delta[2]
 ```
