@@ -73,7 +73,18 @@ df |>
     geom_bar()
 
 #remove 3 variables b/c too many levels
-GGally::ggpairs(df %>% select(-Business_type, -Industry, -Borrower_zip))
+#GGally::ggpairs(df %>% select(-Business_type, -Industry, -Borrower_zip))
+
+for (i in colnames(df)[1:8]) {
+  plot <- df |>
+    ggplot(aes(x = i)) +
+      geom_histogram()
+  print(plot)
+}
+
+df |>
+  ggplot(aes(x = type_mod, y = Health_Care)) +
+    geom_boxplot()
 ```
 
 ## Regression
@@ -175,10 +186,31 @@ screeplot(pc)
 summary(pc)
 ```
 
+### Comparing MSEs
+
+| Method   | Prediction MSE | Predictors |
+|----------|----------------|------------|
+| Stepwise | 2106947766     | 11         |
+| Ridge    | 3975936542     | 115        |
+| LASSO    | 2129772087     | 10         |
+| PCR      |                |            |
+| PLS      |                |            |
+
 ## Classification
 
 ## LDA and QDA
 
 ```{r qda}
+ggplot(df, aes(x = Payroll, y = Jobs_reported, color = type_mod)) +
+  geom_point()
+
+df |>
+  filter(type_mod == "Non-Profit") |>
+  summary()
+
+df |>
+  filter(type_mod == "For-profit, group") |>
+  summary()
+
 qda_ppp <-  MASS::qda(type_mod ~ . - Business_type, data = df, CV = TRUE)
 ```
