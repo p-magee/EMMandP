@@ -60,3 +60,33 @@ glimpse(df)
 car::vif(lm(Amount_forgiven ~ . -Business_type, df))
 car::vif(lm(Amount_forgiven ~ . -type_mod, df))
 ```
+
+## Regression
+
+### Stepwise
+
+```{r stepwise}
+#forward using business type
+set.seed(1234)
+reg_full <- lm(Amount_forgiven ~ . - type_mod, data = df)
+reg_null <- lm(Amount_forgiven ~ 1, data = df)
+step_out_f <- step(reg_null, 
+                 scope = list(lower = reg_null, upper = reg_full),
+                 method = "forward")
+
+#forward using type_mod
+set.seed(1234)
+reg_full <- lm(Amount_forgiven ~ . - Business_type, data = df)
+reg_null <- lm(Amount_forgiven ~ 1, data = df)
+step_out_f2 <- step(reg_null, 
+                 scope = list(lower = reg_null, upper = reg_full),
+                 method = "forward")
+
+#forward results
+summary(step_out_f)
+summary(step_out_f2)
+```
+
+```{r}
+
+```
