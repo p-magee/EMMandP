@@ -11,6 +11,7 @@ library(tidyverse)
 library(car)
 library(class)
 library(leaps)
+library(glmnet)
 ```
 
 ```{r load message=FALSE}
@@ -71,16 +72,18 @@ set.seed(1234)
 reg_full <- lm(Amount_forgiven ~ . - type_mod, data = df)
 reg_null <- lm(Amount_forgiven ~ 1, data = df)
 step_out_f <- step(reg_null, 
-                 scope = list(lower = reg_null, upper = reg_full),
-                 method = "forward")
+                   scope = list(lower = reg_null, upper = reg_full),
+                   method = "forward",
+                   trace = 0)
 
 #forward using type_mod
 set.seed(1234)
 reg_full <- lm(Amount_forgiven ~ . - Business_type, data = df)
 reg_null <- lm(Amount_forgiven ~ 1, data = df)
 step_out_f2 <- step(reg_null, 
-                 scope = list(lower = reg_null, upper = reg_full),
-                 method = "forward")
+                    scope = list(lower = reg_null, upper = reg_full),
+                    method = "forward",
+                    trace = 0)
 
 #forward results
 summary(step_out_f)
@@ -93,4 +96,24 @@ set.seed(1234)
 reg_k10 <- glm(Amount_forgiven ~ Payroll + Rent + Utilities + Health_Care + Debt_Interest + Mortgage_Interest + Jobs_reported + type_mod + Date_forgiven + Date_approved, data = df)
 regCVk10 <- boot::cv.glm(df, reg_k10, K = 10)
 regCVk10$delta[2]
+```
+
+### LASSO and Ridge
+
+```{r ridge}
+X <- model.matrix(lm(Amount_forgiven ~ ., df))[,-1]
+
+set.seed(1234)
+ridge_ppp <- cv.glmnet(X, df$Amount_forgiven, alpha = 0)
+plot(ridge_ppp)
+ridge_ppp$lambda.min
+min(ridge_ppp$cvm)
+```
+
+```{r lasso}
+set.seed(1234)
+lasso_ppp <- cv.glmnet(X, df$Amount_forgiven, alpha = 1)
+plot(lasso_ppp)
+lasso_ppp$lambda.1se
+min(lasso_ppp$cvm)
 ```
