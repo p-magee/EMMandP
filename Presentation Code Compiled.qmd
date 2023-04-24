@@ -12,12 +12,15 @@ library(car)
 library(class)
 library(leaps)
 library(glmnet)
+library(pls)
 ```
 
 ```{r load message=FALSE}
 ppp <- read_csv("PPP details.csv")
 glimpse(ppp)
 ```
+
+### Cleaning
 
 ```{r cleaning}
 df <- ppp %>%
@@ -62,6 +65,17 @@ car::vif(lm(Amount_forgiven ~ . -Business_type, df))
 car::vif(lm(Amount_forgiven ~ . -type_mod, df))
 ```
 
+### Exploration
+
+```{r explore}
+df |>
+  ggplot(aes(x = type_mod)) +
+    geom_bar()
+
+#remove 3 variables b/c too many levels
+GGally::ggpairs(df %>% select(-Business_type, -Industry, -Borrower_zip))
+```
+
 ## Regression
 
 ### Stepwise
@@ -101,7 +115,7 @@ regCVk10$delta[2]
 ### LASSO and Ridge
 
 ```{r ridge}
-X <- model.matrix(lm(Amount_forgiven ~ ., df))[,-1]
+X <- model.matrix(lm(Amount_forgiven ~ . - Business_type, df))[,-1]
 
 set.seed(1234)
 ridge_ppp <- cv.glmnet(X, df$Amount_forgiven, alpha = 0)
@@ -116,4 +130,55 @@ lasso_ppp <- cv.glmnet(X, df$Amount_forgiven, alpha = 1)
 plot(lasso_ppp)
 lasso_ppp$lambda.1se
 min(lasso_ppp$cvm)
+```
+
+### PCR and PLS
+
+Ask professor about these errors
+
+```{r pca}
+#screeplot
+screeplot(
+  prcomp(
+    model.matrix(lm(Amount_forgiven ~ . - Business_type, data = df))
+  )
+) #indicates need to scale
+
+#PCR
+names(df) <-  stringr::str_replace_all(names(df), " ", "_")
+set.seed(1234)
+pcr_ppp <-  pcr(Amount_forgiven ~ ., 
+                data = df %>% select(-Business_type), 
+                scale = TRUE,
+                validation = "CV")
+#summary(pcr_ppp)
+which.min(as.numeric(MSEP(pcr_ppp, estimate = "CV")$val)) - 1
+min(as.numeric(MSEP(pcr_ppp, estimate = "CV")$val))
+
+#PLS
+set.seed(1234)
+pls_ppp <-  plsr(Amount_forgiven ~ ., 
+                data = df %>% select(-Business_type),
+                scale = TRUE,
+                validation = "CV")
+summary(pls_ppp)
+which.min(as.numeric(MSEP(pls_ppp, estimate = "CV")$val)) - 1
+min(as.numeric(MSEP(pls_ppp, estimate = "CV")$val))
+```
+
+```{r}
+#pcr using prcomp due to error
+pcr_matrix <- model.matrix(lm(Amount_forgiven ~ . - Business_type, 
+                                 data = df))
+pc <- stats::prcomp(pcr_matrix[,-1], scale = TRUE)
+screeplot(pc)
+summary(pc)
+```
+
+## Classification
+
+## LDA and QDA
+
+```{r qda}
+qda_ppp <-  MASS::qda(type_mod ~ . - Business_type, data = df, CV = TRUE)
 ```
