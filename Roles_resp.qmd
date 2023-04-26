@@ -1,0 +1,39 @@
+---
+title: "Group Roles & Responsibilities <DRAFT>"
+format: html
+editor: visual
+---
+
+I can craft this into more of a narrative, but wanted to get an accounting of who did what. Below is what I have pulled together from github, our meetings, and our project plan.
+
+## Michael Lewis:
+
+-   Found data set, Tidy Data
+
+-   LDA, Step wise & Lasso Regression
+
+-   Selection and what went into cleaning of the data
+
+## Pete Magee 
+
+-   Tidy Data
+
+-   Descriptive statistics, Tree Prediction Analysis
+
+-   Presentation/Executive Summary
+
+## Margaret Willis
+
+-   PCA
+
+-   Formatting presentation, Identification and description of stakeholders, as well as ethical considerations.
+
+-   POC for questions to professor
+
+## Ethan Wong
+
+-   Regression Regression with cross-validation
+
+-   Coordinated branches on Git Repo, compiled code into one file
+
+-   Identification and description of stakeholders, as well as ethical considerations.
