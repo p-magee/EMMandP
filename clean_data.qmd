@@ -37,7 +37,7 @@ df <- ppp %>%
     `Business type` == "Self-Employed Individuals" ~ "For-profit, Inividual"
   )) %>%
   select(
-    `Amount forgiven`, Payroll, Rent, Utilities,
+    `Amount forgiven`, Payroll, Rent, Utilities, `Loan Status`,
     `Health Care`, `Mortgage Interest`, `Debt Interest`, `Refinancing EIDL`,
     `Business type`, Industry, `Age of business`, `Jobs reported`, Gender,
     Race, type_mod, `Date approved`, `Date forgiven`, `Borrower zip`) %>%
