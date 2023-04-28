@@ -6,7 +6,7 @@ editor: visual
 
 ## Data
 
-```{r packages message=FALSE}
+```{r packages, message=FALSE}
 library(tidyverse)
 library(car)
 library(class)
@@ -18,7 +18,7 @@ library(tree)
 library(randomForest)
 ```
 
-```{r load message=FALSE}
+```{r load, message=FALSE}
 df <- read_csv("PPP details.csv")
 glimpse(df)
 ```
@@ -131,7 +131,7 @@ coef(lasso_ppp)
 
 Ask professor about these errors
 
-```{r pca eval = F}
+```{r pca}
 #screeplot
 screeplot(
   prcomp(
@@ -228,9 +228,9 @@ Xtrain = ppp_k[Z, c("Race", "Gender", "Age_of_business", "Industry", "Jobs_repor
 Ytrain = ppp_k$type_mod[Z] # Our training set y
 Xtest = ppp_k[-Z, c("Race", "Gender", "Age_of_business", "Industry", "Jobs_reported", "Loan_amount")]
 Ytest = ppp_k$type_mod[-Z]
-knn1 <- knn(Xtrain, Xtest, Ytrain, k = 10, prob = TRUE)
+Yhat <- knn(Xtrain, Xtest, Ytrain, k = 10, prob = TRUE)
 
-table(Ytest, knn1)
+table(Ytest, Yhat)
 1 - (table(Ytest, Yhat)[1, 1] + table(Ytest, Yhat)[2, 2] + table(Ytest, Yhat)[3, 3])/((1-training_pct)*nrow(ppp_k))
 
 # Initialize data
@@ -371,4 +371,4 @@ Our tree produced a training OOB Error Rate of 24.36%.
 | QDA\*  | 55.88%     |
 | Tree   | 24.36%     |
 
-\*Several `Race`, `Industry`, and `Age of Business` due to rank deficiency.
+\*Removed `Race`, `Industry`, and `Age of Business` due to rank deficiency.
