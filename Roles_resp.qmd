@@ -4,8 +4,6 @@ format: html
 editor: visual
 ---
 
-I can craft this into more of a narrative, but wanted to get an accounting of who did what. Below is what I have pulled together from github, our meetings, and our project plan.
-
 ## Michael Lewis:
 
 -   Found data set, Tidy Data
@@ -14,7 +12,7 @@ I can craft this into more of a narrative, but wanted to get an accounting of wh
 
 -   Selection and what went into cleaning of the data
 
-## Pete Magee 
+## Pete Magee
 
 -   Tidy Data
 
@@ -28,11 +26,11 @@ I can craft this into more of a narrative, but wanted to get an accounting of wh
 
 -   Formatting presentation, Identification and description of stakeholders, as well as ethical considerations.
 
--   POC for questions to professor
+-   Organized team Zoom Sessions
 
 ## Ethan Wong
 
--   Regression Regression with cross-validation
+-   Ridge Regression with cross-validation, QDA, and KNN
 
 -   Coordinated branches on Git Repo, compiled code into one file
 
