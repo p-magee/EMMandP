@@ -229,8 +229,7 @@ ppp_k <- ppp_c |> mutate(
 
 #?knn()
 set.seed(1234)
-training_pct <- .70
-# with over 25k observations this leaves about 7,500 for testing
+training_pct <- .75
 Z = sample(nrow(ppp_k), floor(training_pct*nrow(ppp_k)))
 Xtrain = ppp_k[Z, c("Race", "Gender", "Age_of_business", "Industry", "Jobs_reported", "Loan_amount")] # Our training set x
 Ytrain = ppp_k$type_mod[Z] # Our training set y
@@ -257,7 +256,7 @@ which.min(err_class)
 err_class[which.min(err_class)]
 ```
 
-Optimal *k* is 37 with an error rate of 31.7%
+Optimal *k* is 39 with an error rate of 32.06%
 
 ### LDA and QDA
 
@@ -374,7 +373,7 @@ Our tree produced a training OOB Error Rate of 24.36%.
 
 | Method | Error Rate |
 |--------|------------|
-| KNN    | 31.7%      |
+| KNN    | 32.06%     |
 | LDA    | 35.76%     |
 | QDA\*  | 55.88%     |
 | Tree   | 24.36%     |
