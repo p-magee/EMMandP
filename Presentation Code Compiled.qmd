@@ -50,7 +50,7 @@ ppp <- df %>%
   )) %>%
   select(
     `Amount forgiven`, Payroll, Rent, Utilities,
-    `Health Care`, `Mortgage Interest`, `Debt Interest`, `Refinancing EIDL`, Industry,`Jobs reported`, type_mod, `*Loan Status`, `Date approved`, `Date forgiven`,) %>%
+    `Health Care`, `Mortgage Interest`, `Debt Interest`, `Refinancing EIDL`, Industry,`Jobs reported`, type_mod, `*Loan Status`, `Date approved`, `Date forgiven`) %>%
   mutate(
     type_mod = as_factor(type_mod),
     Industry = as_factor(Industry)
@@ -70,7 +70,15 @@ car::vif(lm(Amount_forgiven ~ ., ppp))
 
 ppp |>
   ggplot(aes(x = type_mod)) +
-    geom_bar()
+    geom_bar() +
+    ggtitle("Distribution of Business Type") +
+    xlab("Business Type")
+
+ppp |>
+  ggplot(aes(x = Amount_forgiven)) +
+    geom_histogram() +
+    ggtitle("Distribution of Amount Forgiven") +
+    xlab("Amount Forgiven")
 
 #remove 3 variables b/c too many levels
 #GGally::ggpairs(ppp %>% select(-Business_type, -Industry, -Borrower_zip))
@@ -358,7 +366,7 @@ Our tree produced a training OOB Error Rate of 24.36%.
 |----------|------------|------------|
 | Stepwise | 2106947766 | 12         |
 | Ridge    | 3774934490 | 33         |
-| LASSO    | 2002900584 | 5          |
+| LASSO    | 2002900584 | 4          |
 | PCR      | 2041182726 | 33         |
 | PLS      | 2040985265 | 10         |
 
