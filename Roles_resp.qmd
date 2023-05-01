@@ -22,7 +22,7 @@ editor: visual
 
 ## Margaret Willis
 
--   PCA
+-   PCA, PLS
 
 -   Formatting presentation, Identification and description of stakeholders, as well as ethical considerations.
 
@@ -30,7 +30,7 @@ editor: visual
 
 ## Ethan Wong
 
--   Ridge Regression with cross-validation, QDA, and KNN
+-   Ridge Regression, QDA, KNN, and cross-validation
 
 -   Coordinated branches on Git Repo, compiled code into one file
 
