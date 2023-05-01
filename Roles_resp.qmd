@@ -14,7 +14,7 @@ I can craft this into more of a narrative, but wanted to get an accounting of wh
 
 -   Selection and what went into cleaning of the data
 
-## Pete Magee 
+## Pete Magee
 
 -   Tidy Data
 
@@ -24,7 +24,7 @@ I can craft this into more of a narrative, but wanted to get an accounting of wh
 
 ## Margaret Willis
 
--   PCA
+-   PCA, PLS
 
 -   Formatting presentation, Identification and description of stakeholders, as well as ethical considerations.
 
@@ -32,8 +32,8 @@ I can craft this into more of a narrative, but wanted to get an accounting of wh
 
 ## Ethan Wong
 
--   Regression Regression with cross-validation
+-   Ridge Regression, KNN, QDA
 
--   Coordinated branches on Git Repo, compiled code into one file
+-   Coordinated branches on Git Repo, compiled code into one file, and ensured consistency with cross-validation
 
 -   Identification and description of stakeholders, as well as ethical considerations.

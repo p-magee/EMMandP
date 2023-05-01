@@ -200,17 +200,19 @@ $ Race                              &lt;chr&gt; "Unanswered", "Unanswered", "Una
 <span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
 <span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
 <span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Amount forgiven</span><span class="st">`</span>, Payroll, Rent, Utilities,</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Health Care</span><span class="st">`</span>, <span class="st">`</span><span class="at">Mortgage Interest</span><span class="st">`</span>, <span class="st">`</span><span class="at">Debt Interest</span><span class="st">`</span>, <span class="st">`</span><span class="at">Refinancing EIDL</span><span class="st">`</span>, Industry,<span class="st">`</span><span class="at">Jobs reported</span><span class="st">`</span>, type_mod, <span class="st">`</span><span class="at">*Loan Status</span><span class="st">`</span>, <span class="st">`</span><span class="at">Date approved</span><span class="st">`</span>, <span class="st">`</span><span class="at">Date forgiven</span><span class="st">`</span>,) <span class="sc">%&gt;%</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Health Care</span><span class="st">`</span>, <span class="st">`</span><span class="at">Mortgage Interest</span><span class="st">`</span>, <span class="st">`</span><span class="at">Debt Interest</span><span class="st">`</span>, Gender, Race, <span class="st">`</span><span class="at">Refinancing EIDL</span><span class="st">`</span>, Industry,<span class="st">`</span><span class="at">Jobs reported</span><span class="st">`</span>, type_mod, <span class="st">`</span><span class="at">*Loan Status</span><span class="st">`</span>, <span class="st">`</span><span class="at">Date approved</span><span class="st">`</span>, <span class="st">`</span><span class="at">Date forgiven</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">type_mod =</span> <span class="fu">as_factor</span>(type_mod),</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">Industry =</span> <span class="fu">as_factor</span>(Industry)</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>()</span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ppp) <span class="ot">&lt;-</span>  stringr<span class="sc">::</span><span class="fu">str_replace_all</span>(<span class="fu">names</span>(ppp), <span class="st">" "</span>, <span class="st">"_"</span>)</span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(ppp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">Industry =</span> <span class="fu">as_factor</span>(Industry),</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">Gender =</span> <span class="fu">as_factor</span>(Gender),</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">Race =</span> <span class="fu">as_factor</span>(Race)</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>()</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ppp) <span class="ot">&lt;-</span>  stringr<span class="sc">::</span><span class="fu">str_replace_all</span>(<span class="fu">names</span>(ppp), <span class="st">" "</span>, <span class="st">"_"</span>)</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(ppp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 23,678
-Columns: 14
+Columns: 16
 $ Amount_forgiven   &lt;dbl&gt; 10116389, 10115278, 5910159, 9053194, 8309511, 78071…
 $ Payroll           &lt;dbl&gt; 10000000, 10000000, 9026077, 6584058, 8202873, 70000…
 $ Rent              &lt;dbl&gt; 0, 0, 0, 2331855, 0, 0, 0, 0, 0, 0, 333532, 0, 0, 0,…
@@ -218,6 +220,8 @@ $ Utilities         &lt;dbl&gt; 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 667062, 0, 0, 0, 0
 $ Health_Care       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
 $ Mortgage_Interest &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 333531, 0, 0, 0, 0, 0,…
 $ Debt_Interest     &lt;dbl&gt; 0e+00, 0e+00, 0e+00, 0e+00, 0e+00, 1e+06, 0e+00, 0e+…
+$ Gender            &lt;fct&gt; Unanswered, Unanswered, Unanswered, Unanswered, Unan…
+$ Race              &lt;fct&gt; Unanswered, Unanswered, Unanswered, Unanswered, Unan…
 $ Refinancing_EIDL  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
 $ Industry          &lt;fct&gt; "Accommodation and Food Services", "Other Services (…
 $ Jobs_reported     &lt;dbl&gt; 500, 465, 500, 493, 345, 408, 486, 500, 227, 316, 29…
@@ -226,13 +230,12 @@ $ `*Loan_Status`    &lt;chr&gt; "Paid in Full", "Paid in Full", "Exemption 4", "
 $ Date_approved     &lt;date&gt; 2020-04-08, 2020-04-28, 2021-02-11, 2020-04-28, 202…
 $ Date_forgiven     &lt;date&gt; 2021-06-11, 2021-06-25, 2022-02-17, 2021-11-18, 202…</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#`Borrower zip` = as.factor(str_remove(`Borrower zip`, "-.+")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="exploration" class="level3">
 <h3 class="anchored" data-anchor-id="exploration">Exploration</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ppp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ppp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Amount_forgiven       Payroll              Rent             Utilities        
  Min.   :       5   Min.   :       0   Min.   :      0.0   Min.   :      0.0  
@@ -242,14 +245,22 @@ $ Date_forgiven     &lt;date&gt; 2021-06-11, 2021-06-25, 2022-02-17, 2021-11-18,
  3rd Qu.:   91941   3rd Qu.:   91788   3rd Qu.:      0.0   3rd Qu.:      1.0  
  Max.   :10116389   Max.   :10000000   Max.   :2331855.0   Max.   :1550000.0  
                                                                               
-  Health_Care       Mortgage_Interest  Debt_Interest      Refinancing_EIDL  
- Min.   :     0.0   Min.   :     0.0   Min.   :0.00e+00   Min.   :    0.00  
- 1st Qu.:     0.0   1st Qu.:     0.0   1st Qu.:0.00e+00   1st Qu.:    0.00  
- Median :     0.0   Median :     0.0   Median :0.00e+00   Median :    0.00  
- Mean   :   263.7   Mean   :   255.2   Mean   :6.42e+01   Mean   :    7.55  
- 3rd Qu.:     0.0   3rd Qu.:     0.0   3rd Qu.:0.00e+00   3rd Qu.:    0.00  
- Max.   :542925.0   Max.   :600000.0   Max.   :1.00e+06   Max.   :60000.00  
-                                                                            
+  Health_Care       Mortgage_Interest  Debt_Interest               Gender     
+ Min.   :     0.0   Min.   :     0.0   Min.   :0.00e+00   Unanswered  :14585  
+ 1st Qu.:     0.0   1st Qu.:     0.0   1st Qu.:0.00e+00   Male Owned  : 5767  
+ Median :     0.0   Median :     0.0   Median :0.00e+00   Female Owned: 3326  
+ Mean   :   263.7   Mean   :   255.2   Mean   :6.42e+01                       
+ 3rd Qu.:     0.0   3rd Qu.:     0.0   3rd Qu.:0.00e+00                       
+ Max.   :542925.0   Max.   :600000.0   Max.   :1.00e+06                       
+                                                                              
+                                        Race       Refinancing_EIDL  
+ Unanswered                               :18030   Min.   :    0.00  
+ Asian                                    :  907   1st Qu.:    0.00  
+ Black or African American                : 2735   Median :    0.00  
+ White                                    : 1957   Mean   :    7.55  
+ American Indian or Alaska Native         :   35   3rd Qu.:    0.00  
+ Native Hawaiian or Other Pacific Islander:   14   Max.   :60000.00  
+                                                                     
                                              Industry    Jobs_reported   
  Professional, Scientific, and Technical Services:5139   Min.   :  1.00  
  Other Services (except Public Administration)   :4109   1st Qu.:  1.00  
@@ -275,48 +286,50 @@ $ Date_forgiven     &lt;date&gt; 2021-06-11, 2021-06-25, 2022-02-17, 2021-11-18,
  Max.   :2022-12-30  
                      </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">vif</span>(<span class="fu">lm</span>(Amount_forgiven <span class="sc">~</span> ., ppp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">vif</span>(<span class="fu">lm</span>(Amount_forgiven <span class="sc">~</span> ., ppp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                      GVIF Df GVIF^(1/(2*Df))
-Payroll           3.491564  1        1.868573
-Rent              1.064453  1        1.031723
-Utilities         1.116521  1        1.056655
-Health_Care       1.092328  1        1.045145
-Mortgage_Interest 1.163685  1        1.078742
-Debt_Interest     1.023059  1        1.011464
-Refinancing_EIDL  1.013917  1        1.006935
-Industry          1.562263 19        1.011810
-Jobs_reported     3.523591  1        1.877123
-type_mod          1.763572  2        1.152387
-`*Loan_Status`    1.064371  2        1.015718
-Date_approved     2.337331  1        1.528833
-Date_forgiven     2.026278  1        1.423474</code></pre>
+Payroll           3.498362  1        1.870391
+Rent              1.064532  1        1.031761
+Utilities         1.116663  1        1.056723
+Health_Care       1.092341  1        1.045151
+Mortgage_Interest 1.164109  1        1.078939
+Debt_Interest     1.023104  1        1.011486
+Gender            1.960348  2        1.183268
+Race              2.072297  5        1.075586
+Refinancing_EIDL  1.013980  1        1.006966
+Industry          1.741084 19        1.014699
+Jobs_reported     3.530434  1        1.878945
+type_mod          1.812957  2        1.160371
+`*Loan_Status`    1.065033  2        1.015876
+Date_approved     2.381459  1        1.543198
+Date_forgiven     2.030675  1        1.425018</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>ppp <span class="sc">|&gt;</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> type_mod)) <span class="sc">+</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">"Distribution of Business Type"</span>) <span class="sc">+</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">"Business Type"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ppp <span class="sc">|&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> type_mod)) <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">"Distribution of Business Type"</span>) <span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">"Business Type"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Presentation-Code-Compiled_files/figure-html/explore-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ppp <span class="sc">|&gt;</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Amount_forgiven)) <span class="sc">+</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">"Distribution of Amount Forgiven"</span>) <span class="sc">+</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">"Amount Forgiven"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>ppp <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Amount_forgiven)) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">"Distribution of Amount Forgiven"</span>) <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">"Amount Forgiven"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 </div>
 <div class="cell-output-display">
 <p><img src="Presentation-Code-Compiled_files/figure-html/explore-2.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#remove 3 variables b/c too many levels</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">#GGally::ggpairs(ppp %&gt;% select(-Business_type, -Industry, -Borrower_zip))</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>ppp <span class="sc">|&gt;</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> type_mod, <span class="at">y =</span> Health_Care)) <span class="sc">+</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#remove 3 variables b/c too many levels</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#GGally::ggpairs(ppp %&gt;% select(-Business_type, -Industry, -Borrower_zip))</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>ppp <span class="sc">|&gt;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> type_mod, <span class="at">y =</span> Health_Care)) <span class="sc">+</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Presentation-Code-Compiled_files/figure-html/explore-3.png" class="img-fluid" width="672"></p>
 </div>
@@ -328,17 +341,17 @@ Date_forgiven     2.026278  1        1.423474</code></pre>
 <section id="stepwise" class="level3">
 <h3 class="anchored" data-anchor-id="stepwise">Stepwise</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#forward using type_mod</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>reg_full <span class="ot">&lt;-</span> <span class="fu">lm</span>(Amount_forgiven <span class="sc">~</span> ., <span class="at">data =</span> ppp)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>reg_null <span class="ot">&lt;-</span> <span class="fu">lm</span>(Amount_forgiven <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> ppp)</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>step_out_f <span class="ot">&lt;-</span> <span class="fu">step</span>(reg_null, </span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> reg_null, <span class="at">upper =</span> reg_full),</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">method =</span> <span class="st">"forward"</span>,</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">trace =</span> <span class="dv">0</span>)</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co">#forward results</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(step_out_f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#forward using type_mod</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>reg_full <span class="ot">&lt;-</span> <span class="fu">lm</span>(Amount_forgiven <span class="sc">~</span> ., <span class="at">data =</span> ppp)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>reg_null <span class="ot">&lt;-</span> <span class="fu">lm</span>(Amount_forgiven <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> ppp)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>step_out_f <span class="ot">&lt;-</span> <span class="fu">step</span>(reg_null, </span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> reg_null, <span class="at">upper =</span> reg_full),</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">method =</span> <span class="st">"forward"</span>,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">trace =</span> <span class="dv">0</span>)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co">#forward results</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(step_out_f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -373,54 +386,57 @@ Multiple R-squared:  0.9851,    Adjusted R-squared:  0.9851
 F-statistic: 1.301e+05 on 12 and 23665 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
+<p>The stepwise regression found that payroll, rent, utilities, loan status, healthcare, debt interest, mortgage interest, jobs reported, refinancing EIDL, and business type modified were significant.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>reg_k10 <span class="ot">&lt;-</span> <span class="fu">glm</span>(Amount_forgiven <span class="sc">~</span> Payroll <span class="sc">+</span> Rent <span class="sc">+</span> Utilities <span class="sc">+</span> Health_Care <span class="sc">+</span> Debt_Interest <span class="sc">+</span> Mortgage_Interest <span class="sc">+</span> Jobs_reported <span class="sc">+</span> type_mod <span class="sc">+</span> Date_forgiven <span class="sc">+</span> Date_approved, <span class="at">data =</span> ppp)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>regCVk10 <span class="ot">&lt;-</span> boot<span class="sc">::</span><span class="fu">cv.glm</span>(ppp, reg_k10, <span class="at">K =</span> <span class="dv">10</span>)</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>regCVk10<span class="sc">$</span>delta[<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>reg_k10 <span class="ot">&lt;-</span> <span class="fu">glm</span>(Amount_forgiven <span class="sc">~</span> Payroll <span class="sc">+</span> Rent <span class="sc">+</span> Utilities <span class="sc">+</span> Health_Care <span class="sc">+</span> Debt_Interest <span class="sc">+</span> Mortgage_Interest <span class="sc">+</span> Jobs_reported <span class="sc">+</span> type_mod <span class="sc">+</span> Date_forgiven <span class="sc">+</span> Date_approved, <span class="at">data =</span> ppp)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>regCVk10 <span class="ot">&lt;-</span> boot<span class="sc">::</span><span class="fu">cv.glm</span>(ppp, reg_k10, <span class="at">K =</span> <span class="dv">10</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>regCVk10<span class="sc">$</span>delta[<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2106947766</code></pre>
 </div>
 </div>
+<p>The MSE for stepwise is 22106947766.</p>
 </section>
 <section id="lasso-and-ridge" class="level3">
 <h3 class="anchored" data-anchor-id="lasso-and-ridge">LASSO and Ridge</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="fu">lm</span>(Amount_forgiven <span class="sc">~</span> ., ppp))[,<span class="sc">-</span><span class="dv">1</span>]</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>ridge_ppp <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(X, ppp<span class="sc">$</span>Amount_forgiven, <span class="at">alpha =</span> <span class="dv">0</span>)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ridge_ppp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="fu">lm</span>(Amount_forgiven <span class="sc">~</span> ., ppp))[,<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>ridge_ppp <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(X, ppp<span class="sc">$</span>Amount_forgiven, <span class="at">alpha =</span> <span class="dv">0</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ridge_ppp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Presentation-Code-Compiled_files/figure-html/ridge-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>ridge_ppp<span class="sc">$</span>lambda.min</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>ridge_ppp<span class="sc">$</span>lambda.min</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 35197.64</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(ridge_ppp<span class="sc">$</span>cvm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(ridge_ppp<span class="sc">$</span>cvm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 3774934490</code></pre>
+<pre><code>[1] 3777754837</code></pre>
 </div>
 </div>
+<p>The MSE for ridge regression is 3777754837.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>lasso_ppp <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(X, ppp<span class="sc">$</span>Amount_forgiven, <span class="at">alpha =</span> <span class="dv">1</span>)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lasso_ppp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>lasso_ppp <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(X, ppp<span class="sc">$</span>Amount_forgiven, <span class="at">alpha =</span> <span class="dv">1</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lasso_ppp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Presentation-Code-Compiled_files/figure-html/lasso-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>lasso_ppp<span class="sc">$</span>lambda<span class="fl">.1</span>se</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>lasso_ppp<span class="sc">$</span>lambda<span class="fl">.1</span>se</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 10260.3</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(lasso_ppp<span class="sc">$</span>cvm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(lasso_ppp<span class="sc">$</span>cvm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2002900584</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(lasso_ppp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(lasso_ppp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>34 x 1 sparse Matrix of class "dgCMatrix"
+<pre><code>41 x 1 sparse Matrix of class "dgCMatrix"
                                                                                            s1
 (Intercept)                                                                      4844.5337598
 Payroll                                                                             0.9589994
@@ -429,6 +445,13 @@ Utilities                                                                       
 Health_Care                                                                         0.2422003
 Mortgage_Interest                                                                   .        
 Debt_Interest                                                                       .        
+GenderMale Owned                                                                    .        
+GenderFemale Owned                                                                  .        
+RaceAsian                                                                           .        
+RaceBlack or African American                                                       .        
+RaceWhite                                                                           .        
+RaceAmerican Indian or Alaska Native                                                .        
+RaceNative Hawaiian or Other Pacific Islander                                       .        
 Refinancing_EIDL                                                                    .        
 IndustryOther Services (except Public Administration)                               .        
 IndustryReal Estate and Rental and Leasing                                          .        
@@ -458,226 +481,226 @@ Date_approved                                                                   
 Date_forgiven                                                                       .        </code></pre>
 </div>
 </div>
+<p>The MSE for LASSO is 2002900584. The non-zero predictors are payroll, rent, utilities, and health care.</p>
 </section>
 <section id="pcr-and-pls" class="level3">
 <h3 class="anchored" data-anchor-id="pcr-and-pls">PCR and PLS</h3>
-<p>Ask professor about these errors</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#screeplot</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">screeplot</span>(</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prcomp</span>(</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">model.matrix</span>(<span class="fu">lm</span>(Amount_forgiven <span class="sc">~</span> ., <span class="at">data =</span> ppp))</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>) <span class="co">#indicates need to scale</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#screeplot</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">screeplot</span>(</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prcomp</span>(</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">model.matrix</span>(<span class="fu">lm</span>(Amount_forgiven <span class="sc">~</span> ., <span class="at">data =</span> ppp))</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>) <span class="co">#indicates need to scale</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Presentation-Code-Compiled_files/figure-html/pca-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#PCR</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ppp) <span class="ot">&lt;-</span>  stringr<span class="sc">::</span><span class="fu">str_replace_all</span>(<span class="fu">names</span>(ppp), <span class="st">" "</span>, <span class="st">"_"</span>)</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>pcr_ppp <span class="ot">&lt;-</span>  <span class="fu">pcr</span>(Amount_forgiven <span class="sc">~</span> ., </span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> ppp, </span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">scale =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">validation =</span> <span class="st">"CV"</span>)</span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(pcr_ppp)</span></span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="fu">which.min</span>(<span class="fu">as.numeric</span>(<span class="fu">MSEP</span>(pcr_ppp, <span class="at">estimate =</span> <span class="st">"CV"</span>)<span class="sc">$</span>val)) <span class="sc">-</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#PCR</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ppp) <span class="ot">&lt;-</span>  stringr<span class="sc">::</span><span class="fu">str_replace_all</span>(<span class="fu">names</span>(ppp), <span class="st">" "</span>, <span class="st">"_"</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>pcr_ppp <span class="ot">&lt;-</span>  <span class="fu">pcr</span>(Amount_forgiven <span class="sc">~</span> ., </span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> ppp, </span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">scale =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">validation =</span> <span class="st">"CV"</span>)</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(pcr_ppp)</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="fu">which.min</span>(<span class="fu">as.numeric</span>(<span class="fu">MSEP</span>(pcr_ppp, <span class="at">estimate =</span> <span class="st">"CV"</span>)<span class="sc">$</span>val)) <span class="sc">-</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 33</code></pre>
+<pre><code>[1] 40</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(<span class="fu">as.numeric</span>(<span class="fu">MSEP</span>(pcr_ppp, <span class="at">estimate =</span> <span class="st">"CV"</span>)<span class="sc">$</span>val))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(<span class="fu">as.numeric</span>(<span class="fu">MSEP</span>(pcr_ppp, <span class="at">estimate =</span> <span class="st">"CV"</span>)<span class="sc">$</span>val))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2041182726</code></pre>
+<pre><code>[1] 2041329571</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#PLS</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>pls_ppp <span class="ot">&lt;-</span>  <span class="fu">plsr</span>(Amount_forgiven <span class="sc">~</span> ., </span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> ppp,</span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">scale =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">validation =</span> <span class="st">"CV"</span>)</span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(pls_ppp)</span></span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="fu">which.min</span>(<span class="fu">as.numeric</span>(<span class="fu">MSEP</span>(pls_ppp, <span class="at">estimate =</span> <span class="st">"CV"</span>)<span class="sc">$</span>val)) <span class="sc">-</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#PLS</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>pls_ppp <span class="ot">&lt;-</span>  <span class="fu">plsr</span>(Amount_forgiven <span class="sc">~</span> ., </span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> ppp,</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">scale =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">validation =</span> <span class="st">"CV"</span>)</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(pls_ppp)</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="fu">which.min</span>(<span class="fu">as.numeric</span>(<span class="fu">MSEP</span>(pls_ppp, <span class="at">estimate =</span> <span class="st">"CV"</span>)<span class="sc">$</span>val)) <span class="sc">-</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 10</code></pre>
+<pre><code>[1] 11</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(<span class="fu">as.numeric</span>(<span class="fu">MSEP</span>(pls_ppp, <span class="at">estimate =</span> <span class="st">"CV"</span>)<span class="sc">$</span>val))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(<span class="fu">as.numeric</span>(<span class="fu">MSEP</span>(pls_ppp, <span class="at">estimate =</span> <span class="st">"CV"</span>)<span class="sc">$</span>val))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2040985265</code></pre>
+<pre><code>[1] 2040856908</code></pre>
 </div>
 </div>
+<p>The MSE for PCR is 2041329571 with 40 principal components. The MSE for PLS is 2040856908 with 11 principal components.</p>
 </section>
 </section>
 <section id="classification" class="level2">
 <h2 class="anchored" data-anchor-id="classification">Classification</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>ppp_c <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">type_mod =</span> <span class="fu">case_when</span>(</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"501(c)3 – Non Profit"</span> <span class="sc">~</span> <span class="st">"Non-Profit"</span>,</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"501(c)6 – Non Profit Membership"</span> <span class="sc">~</span> <span class="st">"Non-Profit"</span>,</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Non-Profit Childcare Center"</span> <span class="sc">~</span> <span class="st">"Non-Profit"</span>,</span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Non-Profit Organization"</span> <span class="sc">~</span> <span class="st">"Non-Profit"</span>,</span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Professional Association"</span> <span class="sc">~</span> <span class="st">"Non-Profit"</span>,</span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Housing Co-op"</span> <span class="sc">~</span> <span class="st">"Non-Profit"</span>,</span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Cooperative"</span> <span class="sc">~</span> <span class="st">"Non-Profit"</span>,</span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Corporation"</span> <span class="sc">~</span> <span class="st">"For-profit, group"</span>,</span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Limited  Liability Company(LLC)"</span> <span class="sc">~</span> <span class="st">"For-profit, group"</span>,</span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Limited Liability Partnership"</span> <span class="sc">~</span> <span class="st">"For-profit, group"</span>,</span>
-<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Qualified Joint-Venture (spouses)"</span> <span class="sc">~</span> <span class="st">"For-profit, group"</span>,</span>
-<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Subchapter S Corporation"</span> <span class="sc">~</span> <span class="st">"For-profit, group"</span>,</span>
-<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Tribal Concerns"</span> <span class="sc">~</span> <span class="st">"For-profit, group"</span>,</span>
-<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Joint Venture"</span> <span class="sc">~</span> <span class="st">"For-profit, group"</span>,</span>
-<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Trust"</span> <span class="sc">~</span> <span class="st">"For-profit, group"</span>,</span>
-<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Independent contractors"</span> <span class="sc">~</span> <span class="st">"For-profit, Individual"</span>,</span>
-<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Single Member LLC"</span> <span class="sc">~</span> <span class="st">"For-profit, Individual"</span>,</span>
-<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Sole Proprietorship"</span> <span class="sc">~</span> <span class="st">"For-profit, Individual"</span>,</span>
-<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Self-Employed Individuals"</span> <span class="sc">~</span> <span class="st">"For-profit, Individual"</span></span>
-<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
-<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
-<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Amount forgiven</span><span class="st">`</span>, Payroll, Rent, Utilities,</span>
-<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Health Care</span><span class="st">`</span>, <span class="st">`</span><span class="at">Mortgage Interest</span><span class="st">`</span>, <span class="st">`</span><span class="at">Debt Interest</span><span class="st">`</span>, <span class="st">`</span><span class="at">Refinancing EIDL</span><span class="st">`</span>, Industry,<span class="st">`</span><span class="at">Jobs reported</span><span class="st">`</span>, type_mod, <span class="st">`</span><span class="at">*Loan Status</span><span class="st">`</span>, <span class="st">`</span><span class="at">Date approved</span><span class="st">`</span>, <span class="st">`</span><span class="at">Date forgiven</span><span class="st">`</span>, Gender, Race, <span class="st">`</span><span class="at">Loan amount</span><span class="st">`</span>, <span class="st">`</span><span class="at">Age of business</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">type_mod =</span> <span class="fu">as_factor</span>(type_mod),</span>
-<span id="cb40-28"><a href="#cb40-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">Industry =</span> <span class="fu">as_factor</span>(Industry),</span>
-<span id="cb40-29"><a href="#cb40-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">Gender =</span> <span class="fu">as_factor</span>(Gender),</span>
-<span id="cb40-30"><a href="#cb40-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">Race =</span> <span class="fu">as_factor</span>(Race),</span>
-<span id="cb40-31"><a href="#cb40-31" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Age of business</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">as_factor</span>(<span class="st">`</span><span class="at">Age of business</span><span class="st">`</span>)</span>
-<span id="cb40-32"><a href="#cb40-32" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb40-33"><a href="#cb40-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>()</span>
-<span id="cb40-34"><a href="#cb40-34" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ppp_c) <span class="ot">&lt;-</span>  stringr<span class="sc">::</span><span class="fu">str_replace_all</span>(<span class="fu">names</span>(ppp_c), <span class="st">" "</span>, <span class="st">"_"</span>)</span>
-<span id="cb40-35"><a href="#cb40-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-36"><a href="#cb40-36" aria-hidden="true" tabindex="-1"></a>ppp_c <span class="ot">&lt;-</span> ppp_c <span class="sc">|&gt;</span> <span class="fu">select</span>(type_mod, </span>
-<span id="cb40-37"><a href="#cb40-37" aria-hidden="true" tabindex="-1"></a>                         Gender, </span>
-<span id="cb40-38"><a href="#cb40-38" aria-hidden="true" tabindex="-1"></a>                         Industry, </span>
-<span id="cb40-39"><a href="#cb40-39" aria-hidden="true" tabindex="-1"></a>                         Age_of_business,</span>
-<span id="cb40-40"><a href="#cb40-40" aria-hidden="true" tabindex="-1"></a>                         Race, </span>
-<span id="cb40-41"><a href="#cb40-41" aria-hidden="true" tabindex="-1"></a>                         Jobs_reported, </span>
-<span id="cb40-42"><a href="#cb40-42" aria-hidden="true" tabindex="-1"></a>                         Loan_amount)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>ppp_c <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">type_mod =</span> <span class="fu">case_when</span>(</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"501(c)3 – Non Profit"</span> <span class="sc">~</span> <span class="st">"Non-Profit"</span>,</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"501(c)6 – Non Profit Membership"</span> <span class="sc">~</span> <span class="st">"Non-Profit"</span>,</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Non-Profit Childcare Center"</span> <span class="sc">~</span> <span class="st">"Non-Profit"</span>,</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Non-Profit Organization"</span> <span class="sc">~</span> <span class="st">"Non-Profit"</span>,</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Professional Association"</span> <span class="sc">~</span> <span class="st">"Non-Profit"</span>,</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Housing Co-op"</span> <span class="sc">~</span> <span class="st">"Non-Profit"</span>,</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Cooperative"</span> <span class="sc">~</span> <span class="st">"Non-Profit"</span>,</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Corporation"</span> <span class="sc">~</span> <span class="st">"For-profit, group"</span>,</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Limited  Liability Company(LLC)"</span> <span class="sc">~</span> <span class="st">"For-profit, group"</span>,</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Limited Liability Partnership"</span> <span class="sc">~</span> <span class="st">"For-profit, group"</span>,</span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Qualified Joint-Venture (spouses)"</span> <span class="sc">~</span> <span class="st">"For-profit, group"</span>,</span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Subchapter S Corporation"</span> <span class="sc">~</span> <span class="st">"For-profit, group"</span>,</span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Tribal Concerns"</span> <span class="sc">~</span> <span class="st">"For-profit, group"</span>,</span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Joint Venture"</span> <span class="sc">~</span> <span class="st">"For-profit, group"</span>,</span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Trust"</span> <span class="sc">~</span> <span class="st">"For-profit, group"</span>,</span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Independent contractors"</span> <span class="sc">~</span> <span class="st">"For-profit, Individual"</span>,</span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Single Member LLC"</span> <span class="sc">~</span> <span class="st">"For-profit, Individual"</span>,</span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Sole Proprietorship"</span> <span class="sc">~</span> <span class="st">"For-profit, Individual"</span>,</span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Business type</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Self-Employed Individuals"</span> <span class="sc">~</span> <span class="st">"For-profit, Individual"</span></span>
+<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Amount forgiven</span><span class="st">`</span>, Payroll, Rent, Utilities,</span>
+<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Health Care</span><span class="st">`</span>, <span class="st">`</span><span class="at">Mortgage Interest</span><span class="st">`</span>, <span class="st">`</span><span class="at">Debt Interest</span><span class="st">`</span>, <span class="st">`</span><span class="at">Refinancing EIDL</span><span class="st">`</span>, Industry,<span class="st">`</span><span class="at">Jobs reported</span><span class="st">`</span>, type_mod, <span class="st">`</span><span class="at">*Loan Status</span><span class="st">`</span>, <span class="st">`</span><span class="at">Date approved</span><span class="st">`</span>, <span class="st">`</span><span class="at">Date forgiven</span><span class="st">`</span>, Gender, Race, <span class="st">`</span><span class="at">Loan amount</span><span class="st">`</span>, <span class="st">`</span><span class="at">Age of business</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb39-27"><a href="#cb39-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">type_mod =</span> <span class="fu">as_factor</span>(type_mod),</span>
+<span id="cb39-28"><a href="#cb39-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">Industry =</span> <span class="fu">as_factor</span>(Industry),</span>
+<span id="cb39-29"><a href="#cb39-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">Gender =</span> <span class="fu">as_factor</span>(Gender),</span>
+<span id="cb39-30"><a href="#cb39-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">Race =</span> <span class="fu">as_factor</span>(Race),</span>
+<span id="cb39-31"><a href="#cb39-31" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Age of business</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">as_factor</span>(<span class="st">`</span><span class="at">Age of business</span><span class="st">`</span>)</span>
+<span id="cb39-32"><a href="#cb39-32" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb39-33"><a href="#cb39-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>()</span>
+<span id="cb39-34"><a href="#cb39-34" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ppp_c) <span class="ot">&lt;-</span>  stringr<span class="sc">::</span><span class="fu">str_replace_all</span>(<span class="fu">names</span>(ppp_c), <span class="st">" "</span>, <span class="st">"_"</span>)</span>
+<span id="cb39-35"><a href="#cb39-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-36"><a href="#cb39-36" aria-hidden="true" tabindex="-1"></a>ppp_c <span class="ot">&lt;-</span> ppp_c <span class="sc">|&gt;</span> <span class="fu">select</span>(type_mod, </span>
+<span id="cb39-37"><a href="#cb39-37" aria-hidden="true" tabindex="-1"></a>                         Gender, </span>
+<span id="cb39-38"><a href="#cb39-38" aria-hidden="true" tabindex="-1"></a>                         Industry, </span>
+<span id="cb39-39"><a href="#cb39-39" aria-hidden="true" tabindex="-1"></a>                         Age_of_business,</span>
+<span id="cb39-40"><a href="#cb39-40" aria-hidden="true" tabindex="-1"></a>                         Race, </span>
+<span id="cb39-41"><a href="#cb39-41" aria-hidden="true" tabindex="-1"></a>                         Jobs_reported, </span>
+<span id="cb39-42"><a href="#cb39-42" aria-hidden="true" tabindex="-1"></a>                         Loan_amount)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="knn" class="level3">
 <h3 class="anchored" data-anchor-id="knn">KNN</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>ppp_k <span class="ot">&lt;-</span> ppp_c <span class="sc">|&gt;</span> <span class="fu">mutate</span>(</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Gender =</span> <span class="fu">as.numeric</span>(Gender),</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Race =</span> <span class="fu">as.numeric</span>(Race),</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Age_of_business =</span> <span class="fu">as.numeric</span>(Age_of_business),</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Industry =</span> <span class="fu">as.numeric</span>(Industry)</span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="co">#?knn()</span></span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>training_pct <span class="ot">&lt;-</span> .<span class="dv">70</span></span>
-<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a><span class="co"># with over 25k observations this leaves about 7,500 for testing</span></span>
-<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>Z <span class="ot">=</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(ppp_k), <span class="fu">floor</span>(training_pct<span class="sc">*</span><span class="fu">nrow</span>(ppp_k)))</span>
-<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>Xtrain <span class="ot">=</span> ppp_k[Z, <span class="fu">c</span>(<span class="st">"Race"</span>, <span class="st">"Gender"</span>, <span class="st">"Age_of_business"</span>, <span class="st">"Industry"</span>, <span class="st">"Jobs_reported"</span>, <span class="st">"Loan_amount"</span>)] <span class="co"># Our training set x</span></span>
-<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>Ytrain <span class="ot">=</span> ppp_k<span class="sc">$</span>type_mod[Z] <span class="co"># Our training set y</span></span>
-<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>Xtest <span class="ot">=</span> ppp_k[<span class="sc">-</span>Z, <span class="fu">c</span>(<span class="st">"Race"</span>, <span class="st">"Gender"</span>, <span class="st">"Age_of_business"</span>, <span class="st">"Industry"</span>, <span class="st">"Jobs_reported"</span>, <span class="st">"Loan_amount"</span>)]</span>
-<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>Ytest <span class="ot">=</span> ppp_k<span class="sc">$</span>type_mod[<span class="sc">-</span>Z]</span>
-<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>Yhat <span class="ot">&lt;-</span> <span class="fu">knn</span>(Xtrain, Xtest, Ytrain, <span class="at">k =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Ytest, Yhat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>ppp_k <span class="ot">&lt;-</span> ppp_c <span class="sc">|&gt;</span> <span class="fu">mutate</span>(</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Gender =</span> <span class="fu">as.numeric</span>(Gender),</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Race =</span> <span class="fu">as.numeric</span>(Race),</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Age_of_business =</span> <span class="fu">as.numeric</span>(Age_of_business),</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Industry =</span> <span class="fu">as.numeric</span>(Industry)</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="co">#?knn()</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>training_pct <span class="ot">&lt;-</span> .<span class="dv">75</span></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>Z <span class="ot">=</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(ppp_k), <span class="fu">floor</span>(training_pct<span class="sc">*</span><span class="fu">nrow</span>(ppp_k)))</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>Xtrain <span class="ot">=</span> ppp_k[Z, <span class="fu">c</span>(<span class="st">"Race"</span>, <span class="st">"Gender"</span>, <span class="st">"Age_of_business"</span>, <span class="st">"Industry"</span>, <span class="st">"Jobs_reported"</span>, <span class="st">"Loan_amount"</span>)] <span class="co"># Our training set x</span></span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>Ytrain <span class="ot">=</span> ppp_k<span class="sc">$</span>type_mod[Z] <span class="co"># Our training set y</span></span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>Xtest <span class="ot">=</span> ppp_k[<span class="sc">-</span>Z, <span class="fu">c</span>(<span class="st">"Race"</span>, <span class="st">"Gender"</span>, <span class="st">"Age_of_business"</span>, <span class="st">"Industry"</span>, <span class="st">"Jobs_reported"</span>, <span class="st">"Loan_amount"</span>)]</span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>Ytest <span class="ot">=</span> ppp_k<span class="sc">$</span>type_mod[<span class="sc">-</span>Z]</span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>Yhat <span class="ot">&lt;-</span> <span class="fu">knn</span>(Xtrain, Xtest, Ytrain, <span class="at">k =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Ytest, Yhat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                        Yhat
 Ytest                    For-profit, group Non-Profit For-profit, Individual
-  For-profit, group                   3079        136                    770
-  Non-Profit                           746         59                     51
-  For-profit, Individual               635          6                   1622</code></pre>
+  For-profit, group                   2565        116                    643
+  Non-Profit                           615         53                     43
+  For-profit, Individual               553          7                   1325</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> (<span class="fu">table</span>(Ytest, Yhat)[<span class="dv">1</span>, <span class="dv">1</span>] <span class="sc">+</span> <span class="fu">table</span>(Ytest, Yhat)[<span class="dv">2</span>, <span class="dv">2</span>] <span class="sc">+</span> <span class="fu">table</span>(Ytest, Yhat)[<span class="dv">3</span>, <span class="dv">3</span>])<span class="sc">/</span>((<span class="dv">1</span><span class="sc">-</span>training_pct)<span class="sc">*</span><span class="fu">nrow</span>(ppp_k))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> (<span class="fu">table</span>(Ytest, Yhat)[<span class="dv">1</span>, <span class="dv">1</span>] <span class="sc">+</span> <span class="fu">table</span>(Ytest, Yhat)[<span class="dv">2</span>, <span class="dv">2</span>] <span class="sc">+</span> <span class="fu">table</span>(Ytest, Yhat)[<span class="dv">3</span>, <span class="dv">3</span>])<span class="sc">/</span>((<span class="dv">1</span><span class="sc">-</span>training_pct)<span class="sc">*</span><span class="fu">nrow</span>(ppp_k))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.3298984</code></pre>
+<pre><code>[1] 0.3338964</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize data</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>err_class <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>)</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>tpr <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>)</span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>fpr <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>)</span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="co"># run the loop</span></span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>){ <span class="co"># There is something wrong in here.....</span></span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>Yhat <span class="ot">&lt;-</span> <span class="fu">knn</span>(Xtrain, Xtest, Ytrain, <span class="at">k =</span> k)</span>
-<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>err_class[k] <span class="ot">&lt;-</span> <span class="fu">mean</span>(Yhat <span class="sc">!=</span> Ytest) <span class="co"># The prediction is not correct</span></span>
-<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">tibble</span>(err_class, <span class="at">k =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>), <span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> err_class)) <span class="sc">+</span></span>
-<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize data</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>err_class <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="co"># run the loop</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>){</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>Yhat <span class="ot">&lt;-</span> <span class="fu">knn</span>(Xtrain, Xtest, Ytrain, <span class="at">k =</span> k)</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>err_class[k] <span class="ot">&lt;-</span> <span class="fu">mean</span>(Yhat <span class="sc">!=</span> Ytest)</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">tibble</span>(err_class, <span class="at">k =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>), <span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> err_class)) <span class="sc">+</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Presentation-Code-Compiled_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
+<p><img src="Presentation-Code-Compiled_files/figure-html/knn-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which.min</span>(err_class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which.min</span>(err_class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 36</code></pre>
+<pre><code>[1] 39</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>err_class[<span class="fu">which.min</span>(err_class)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>err_class[<span class="fu">which.min</span>(err_class)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.3181306</code></pre>
+<pre><code>[1] 0.3206081</code></pre>
 </div>
 </div>
-<p>Optimal <em>k</em> is 37 with an error rate of 31.7%</p>
+<p>Optimal <em>k</em> is 39 with an error rate of 32.06%</p>
 </section>
 <section id="lda-and-qda" class="level3">
 <h3 class="anchored" data-anchor-id="lda-and-qda">LDA and QDA</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>lda_output <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">lda</span>(type_mod <span class="sc">~</span> Gender <span class="sc">+</span> Industry </span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>      <span class="sc">+</span> Age_of_business <span class="sc">+</span> Race <span class="sc">+</span> Jobs_reported <span class="sc">+</span> Loan_amount, <span class="at">data =</span> ppp_c, </span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">CV =</span> T)</span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="co"># create data frame with classifications and true values</span></span>
-<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>lda_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Gender =</span> ppp_c<span class="sc">$</span>Gender, </span>
-<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Industry =</span> ppp_c<span class="sc">$</span>Industry,</span>
-<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Age_of_business =</span> ppp_c<span class="sc">$</span>Age_of_business, </span>
-<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Race =</span> ppp_c<span class="sc">$</span>Race, </span>
-<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Jobs_reported =</span> ppp_c<span class="sc">$</span>Jobs_reported, </span>
-<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Loan_amount =</span> ppp_c<span class="sc">$</span>Loan_amount, </span>
-<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Class =</span> lda_output<span class="sc">$</span>class) <span class="sc">|&gt;</span> </span>
-<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">"ID"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">as.numeric</span>(ID)) <span class="sc">|&gt;</span> </span>
-<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(<span class="at">true_q =</span> ppp_c<span class="sc">$</span>type_mod)</span>
-<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a><span class="co">#LDA Error Rate</span></span>
-<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> <span class="fu">sum</span>(lda_df<span class="sc">$</span>Class <span class="sc">!=</span> lda_df<span class="sc">$</span>true_q) <span class="sc">/</span> <span class="fu">nrow</span>(ppp_c), <span class="dv">2</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>lda_output <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">lda</span>(type_mod <span class="sc">~</span> Gender <span class="sc">+</span> Industry </span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>      <span class="sc">+</span> Age_of_business <span class="sc">+</span> Race <span class="sc">+</span> Jobs_reported <span class="sc">+</span> Loan_amount, <span class="at">data =</span> ppp_c, </span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">CV =</span> T)</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="co"># create data frame with classifications and true values</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>lda_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Gender =</span> ppp_c<span class="sc">$</span>Gender, </span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Industry =</span> ppp_c<span class="sc">$</span>Industry,</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Age_of_business =</span> ppp_c<span class="sc">$</span>Age_of_business, </span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Race =</span> ppp_c<span class="sc">$</span>Race, </span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Jobs_reported =</span> ppp_c<span class="sc">$</span>Jobs_reported, </span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Loan_amount =</span> ppp_c<span class="sc">$</span>Loan_amount, </span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Class =</span> lda_output<span class="sc">$</span>class) <span class="sc">|&gt;</span> </span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">"ID"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">as.numeric</span>(ID)) <span class="sc">|&gt;</span> </span>
+<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(<span class="at">true_q =</span> ppp_c<span class="sc">$</span>type_mod)</span>
+<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a><span class="co">#LDA Error Rate</span></span>
+<span id="cb49-18"><a href="#cb49-18" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> <span class="fu">sum</span>(lda_df<span class="sc">$</span>Class <span class="sc">!=</span> lda_df<span class="sc">$</span>true_q) <span class="sc">/</span> <span class="fu">nrow</span>(ppp_c), <span class="dv">2</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 35.76</code></pre>
+<pre><code>[1] 35.73</code></pre>
 </div>
 </div>
+<p>The LDA error rate is 35.76%</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>qda_output <span class="ot">&lt;-</span>  MASS<span class="sc">::</span><span class="fu">qda</span>(type_mod <span class="sc">~</span> Gender <span class="sc">+</span> Jobs_reported <span class="sc">+</span> Loan_amount, <span class="at">data =</span> ppp_c, <span class="at">CV =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>qda_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Gender =</span> ppp_c<span class="sc">$</span>Gender, </span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Jobs_reported =</span> ppp_c<span class="sc">$</span>Jobs_reported, </span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Loan_amount =</span> ppp_c<span class="sc">$</span>Loan_amount, </span>
-<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Class =</span> qda_output<span class="sc">$</span>class) <span class="sc">|&gt;</span> </span>
-<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">"ID"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">as.numeric</span>(ID)) <span class="sc">|&gt;</span> </span>
-<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(<span class="at">true_q =</span> ppp_c<span class="sc">$</span>type_mod)</span>
-<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a><span class="co">#QDA Error Rate</span></span>
-<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> <span class="fu">sum</span>(qda_df<span class="sc">$</span>Class <span class="sc">!=</span> qda_df<span class="sc">$</span>true_q) <span class="sc">/</span> <span class="fu">nrow</span>(ppp_c), <span class="dv">2</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>qda_output <span class="ot">&lt;-</span>  MASS<span class="sc">::</span><span class="fu">qda</span>(type_mod <span class="sc">~</span> Gender <span class="sc">+</span> Jobs_reported <span class="sc">+</span> Loan_amount, <span class="at">data =</span> ppp_c, <span class="at">CV =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>qda_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Gender =</span> ppp_c<span class="sc">$</span>Gender, </span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Jobs_reported =</span> ppp_c<span class="sc">$</span>Jobs_reported, </span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Loan_amount =</span> ppp_c<span class="sc">$</span>Loan_amount, </span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Class =</span> qda_output<span class="sc">$</span>class) <span class="sc">|&gt;</span> </span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">"ID"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">as.numeric</span>(ID)) <span class="sc">|&gt;</span> </span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(<span class="at">true_q =</span> ppp_c<span class="sc">$</span>type_mod)</span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a><span class="co">#QDA Error Rate</span></span>
+<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> <span class="fu">sum</span>(qda_df<span class="sc">$</span>Class <span class="sc">!=</span> qda_df<span class="sc">$</span>true_q) <span class="sc">/</span> <span class="fu">nrow</span>(ppp_c), <span class="dv">2</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 51.88</code></pre>
 </div>
 </div>
+<p>The QDA error rate is 51.88%. Race, industry, and age of business had to removed due to rank error. The rank error was investigated below.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">filter</span>(ppp_c, type_mod <span class="sc">==</span> <span class="st">"For-profit, group"</span>)<span class="sc">$</span>Race)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">filter</span>(ppp_c, type_mod <span class="sc">==</span> <span class="st">"Non-Profit"</span>)<span class="sc">$</span>Race)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
                                Unanswered 
-                                     9960 
+                                     2654 
                                     Asian 
-                                      777 
+                                       26 
                 Black or African American 
-                                     1105 
+                                       82 
                                     White 
-                                     1373 
+                                      185 
          American Indian or Alaska Native 
-                                       17 
+                                        4 
 Native Hawaiian or Other Pacific Islander 
-                                        9 </code></pre>
+                                        0 </code></pre>
 </div>
 </div>
 </section>
 <section id="tree" class="level3">
 <h3 class="anchored" data-anchor-id="tree">Tree</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>Z <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(ppp_c), <span class="fl">0.75</span><span class="sc">*</span><span class="fu">nrow</span>(ppp_c))</span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>tree_final <span class="ot">&lt;-</span> <span class="fu">tree</span>(type_mod <span class="sc">~</span> ., <span class="at">data =</span> ppp_c)</span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>tree_final</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>Z <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(ppp_c), <span class="fl">0.75</span><span class="sc">*</span><span class="fu">nrow</span>(ppp_c))</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>tree_final <span class="ot">&lt;-</span> <span class="fu">tree</span>(type_mod <span class="sc">~</span> ., <span class="at">data =</span> ppp_c)</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>tree_final</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>node), split, n, deviance, yval, (yprob)
       * denotes terminal node
@@ -692,16 +715,16 @@ Native Hawaiian or Other Pacific Islander
       13) Industry: Professional, Scientific, and Technical Services,Administrative and Support and Waste Management and Remediation Services,Agriculture, Forestry, Fishing and Hunting,Health Care and Social Assistance,Information,Management of Companies and Enterprises,Finance and Insurance,Mining, Quarrying, and Oil and Gas Extraction 5229  6112 For-profit, group ( 0.81909 0.12526 0.05565 ) *
      7) Industry: Other Services (except Public Administration),Educational Services,Arts, Entertainment, and Recreation,Public Administration,Utilities 3497  5415 Non-Profit ( 0.39605 0.57935 0.02459 ) *</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tree_final)</span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(tree_final)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tree_final)</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(tree_final)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Presentation-Code-Compiled_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+<p><img src="Presentation-Code-Compiled_files/figure-html/initial_tree-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>cv_tree_ppp <span class="ot">&lt;-</span> <span class="fu">cv.tree</span>(tree_final, <span class="at">K =</span> <span class="dv">10</span>, <span class="at">FUN =</span> prune.misclass)</span>
-<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>cv_tree_ppp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>cv_tree_ppp <span class="ot">&lt;-</span> <span class="fu">cv.tree</span>(tree_final, <span class="at">K =</span> <span class="dv">10</span>, <span class="at">FUN =</span> prune.misclass)</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>cv_tree_ppp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$size
 [1] 5 3 2 1
@@ -718,25 +741,25 @@ $method
 attr(,"class")
 [1] "prune"         "tree.sequence"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> cv_tree_ppp<span class="sc">$</span>size, <span class="at">y =</span> cv_tree_ppp<span class="sc">$</span>dev <span class="sc">/</span> <span class="fu">nrow</span>(ppp_c))</span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y), <span class="at">data =</span> df) <span class="sc">+</span></span>
-<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Cross-validation error rate vs. tree size"</span>,</span>
-<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"CV Error Rate"</span>,</span>
-<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Tree Size"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> cv_tree_ppp<span class="sc">$</span>size, <span class="at">y =</span> cv_tree_ppp<span class="sc">$</span>dev <span class="sc">/</span> <span class="fu">nrow</span>(ppp_c))</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y), <span class="at">data =</span> df) <span class="sc">+</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Cross-validation error rate vs. tree size"</span>,</span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"CV Error Rate"</span>,</span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Tree Size"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Presentation-Code-Compiled_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+<p><img src="Presentation-Code-Compiled_files/figure-html/tree_cv-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>cv_tree_ppp<span class="sc">$</span>size[<span class="fu">which.min</span>(cv_tree_ppp<span class="sc">$</span>dev)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>cv_tree_ppp<span class="sc">$</span>size[<span class="fu">which.min</span>(cv_tree_ppp<span class="sc">$</span>dev)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 5</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>new_tree <span class="ot">&lt;-</span> <span class="fu">prune.tree</span>(tree_final, <span class="at">best =</span> <span class="dv">5</span>)</span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>new_tree</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>new_tree <span class="ot">&lt;-</span> <span class="fu">prune.tree</span>(tree_final, <span class="at">best =</span> <span class="dv">5</span>)</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>new_tree</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>node), split, n, deviance, yval, (yprob)
       * denotes terminal node
@@ -751,15 +774,32 @@ attr(,"class")
       13) Industry: Professional, Scientific, and Technical Services,Administrative and Support and Waste Management and Remediation Services,Agriculture, Forestry, Fishing and Hunting,Health Care and Social Assistance,Information,Management of Companies and Enterprises,Finance and Insurance,Mining, Quarrying, and Oil and Gas Extraction 5229  6112 For-profit, group ( 0.81909 0.12526 0.05565 ) *
      7) Industry: Other Services (except Public Administration),Educational Services,Arts, Entertainment, and Recreation,Public Administration,Utilities 3497  5415 Non-Profit ( 0.39605 0.57935 0.02459 ) *</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(new_tree)</span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(new_tree)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(new_tree)</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(new_tree)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Presentation-Code-Compiled_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+<p><img src="Presentation-Code-Compiled_files/figure-html/tree_prune-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>new_tree <span class="ot">&lt;-</span> <span class="fu">prune.tree</span>(tree_final, <span class="at">best =</span> <span class="dv">3</span>)</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>new_tree</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>node), split, n, deviance, yval, (yprob)
+      * denotes terminal node
+
+1) root 23678 44920 For-profit, group ( 0.55921 0.12463 0.31616 )  
+  2) Jobs_reported &lt; 1.5 10134 14150 For-profit, Individual ( 0.29820 0.01944 0.68236 ) *
+  3) Jobs_reported &gt; 1.5 13544 18150 For-profit, group ( 0.75450 0.20334 0.04216 )  
+    6) Industry: Accommodation and Food Services,Real Estate and Rental and Leasing,Professional, Scientific, and Technical Services,Construction,Administrative and Support and Waste Management and Remediation Services,Agriculture, Forestry, Fishing and Hunting,Health Care and Social Assistance,Retail Trade,Information,Management of Companies and Enterprises,Finance and Insurance,Manufacturing,Wholesale Trade,Transportation and Warehousing,Mining, Quarrying, and Oil and Gas Extraction 10047  9035 For-profit, group ( 0.87927 0.07246 0.04827 ) *
+    7) Industry: Other Services (except Public Administration),Educational Services,Arts, Entertainment, and Recreation,Public Administration,Utilities 3497  5415 Non-Profit ( 0.39605 0.57935 0.02459 ) *</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(new_tree)</span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(new_tree)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Presentation-Code-Compiled_files/figure-html/tree_prune-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Cross validated error rates are the lowest in trees with nodes 3 and up. The <code>which.min()</code> suggested that the lowest error came at 5 terminal nodes. This is the same size tree as the original output given to us by <code>tree()</code> .</p>
+<p>Cross validated error rates are the lowest in trees with nodes 3 and up. The <code>which.min()</code> suggested that the lowest error came at 5 terminal nodes. This is the same size tree as the original output given to us by <code>tree()</code> . 2 nodes can be pruned because they have the same prediction after the node splits. So our final tree has 3 nodes.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(tree_final)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(tree_final)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Classification tree:
@@ -770,23 +810,23 @@ Number of terminal nodes:  5
 Residual mean deviance:  1.156 = 27370 / 23670 
 Misclassification error rate: 0.2493 = 5903 / 23678 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(new_tree)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(new_tree)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Classification tree:
-tree(formula = type_mod ~ ., data = ppp_c)
+snip.tree(tree = tree_final, nodes = c(6L, 2L))
 Variables actually used in tree construction:
 [1] "Jobs_reported" "Industry"     
-Number of terminal nodes:  5 
-Residual mean deviance:  1.156 = 27370 / 23670 
+Number of terminal nodes:  3 
+Residual mean deviance:  1.208 = 28600 / 23680 
 Misclassification error rate: 0.2493 = 5903 / 23678 </code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>Z <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(ppp_c), <span class="fu">nrow</span>(ppp_c)<span class="sc">/</span><span class="dv">2</span>)</span>
-<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>bag <span class="ot">&lt;-</span> randomForest<span class="sc">::</span><span class="fu">randomForest</span>(type_mod <span class="sc">~</span> Jobs_reported <span class="sc">+</span> Industry, <span class="at">data =</span> ppp_c[Z,])</span>
-<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>bag</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>Z <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(ppp_c), <span class="fu">nrow</span>(ppp_c)<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>bag <span class="ot">&lt;-</span> randomForest<span class="sc">::</span><span class="fu">randomForest</span>(type_mod <span class="sc">~</span> Jobs_reported <span class="sc">+</span> Industry, <span class="at">data =</span> ppp_c[Z,])</span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>bag</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -808,8 +848,8 @@ For-profit, Individual  0.07449393</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>Yhat <span class="ot">&lt;-</span> <span class="fu">predict</span>(bag, <span class="at">newdata =</span> ppp_c[<span class="sc">-</span>Z,])</span>
-<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Yhat, ppp_c<span class="sc">$</span>type_mod[<span class="sc">-</span>Z])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>Yhat <span class="ot">&lt;-</span> <span class="fu">predict</span>(bag, <span class="at">newdata =</span> ppp_c[<span class="sc">-</span>Z,])</span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Yhat, ppp_c<span class="sc">$</span>type_mod[<span class="sc">-</span>Z])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                        
 Yhat                     For-profit, group Non-Profit For-profit, Individual
@@ -817,7 +857,7 @@ Yhat                     For-profit, group Non-Profit For-profit, Individual
   Non-Profit                           527        903                     27
   For-profit, Individual              1494         91                   3486</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(Yhat <span class="sc">!=</span> ppp_c<span class="sc">$</span>type_mod[<span class="sc">-</span>Z])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(Yhat <span class="sc">!=</span> ppp_c<span class="sc">$</span>type_mod[<span class="sc">-</span>Z])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.2436017</code></pre>
 </div>
@@ -845,8 +885,8 @@ Yhat                     For-profit, group Non-Profit For-profit, Individual
 </tr>
 <tr class="even">
 <td>Ridge</td>
-<td>3774934490</td>
-<td>33</td>
+<td>3777754837</td>
+<td>40</td>
 </tr>
 <tr class="odd">
 <td>LASSO</td>
@@ -855,13 +895,13 @@ Yhat                     For-profit, group Non-Profit For-profit, Individual
 </tr>
 <tr class="even">
 <td>PCR</td>
-<td>2041182726</td>
-<td>33</td>
+<td>2041329571</td>
+<td>40</td>
 </tr>
 <tr class="odd">
 <td>PLS</td>
-<td>2040985265</td>
-<td>10</td>
+<td>2040856908</td>
+<td>11</td>
 </tr>
 </tbody>
 </table>
@@ -878,7 +918,7 @@ Yhat                     For-profit, group Non-Profit For-profit, Individual
 <tbody>
 <tr class="odd">
 <td>KNN</td>
-<td>31.7%</td>
+<td>32.06%</td>
 </tr>
 <tr class="even">
 <td>LDA</td>
