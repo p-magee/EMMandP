@@ -4,8 +4,6 @@ format: html
 editor: visual
 ---
 
-I can craft this into more of a narrative, but wanted to get an accounting of who did what. Below is what I have pulled together from github, our meetings, and our project plan.
-
 ## Michael Lewis:
 
 -   Found data set, Tidy Data
@@ -28,12 +26,12 @@ I can craft this into more of a narrative, but wanted to get an accounting of wh
 
 -   Formatting presentation, Identification and description of stakeholders, as well as ethical considerations.
 
--   POC for questions to professor
+-   Organized team Zoom Sessions
 
 ## Ethan Wong
 
--   Ridge Regression, KNN, QDA
+-   Ridge Regression, QDA, KNN, and cross-validation
 
--   Coordinated branches on Git Repo, compiled code into one file, and ensured consistency with cross-validation
+-   Coordinated branches on Git Repo, compiled code into one file
 
 -   Identification and description of stakeholders, as well as ethical considerations.
