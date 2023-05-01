@@ -391,11 +391,11 @@ Our tree produced a training OOB Error Rate of 24.36%.
 
 ### Classification
 
-| Method | Error Rate |
-|--------|------------|
-| KNN    | 31.7%      |
-| LDA    | 35.76%     |
-| QDA\*  | 55.88%     |
-| Tree   | 24.36%     |
+| Method | Error Rate        |
+|--------|-------------------|
+| KNN    | 32.3% with K = 47 |
+| LDA    | 35.76%            |
+| QDA\*  | 55.88%            |
+| Tree   | 24.36%            |
 
 \*Removed `Race`, `Industry`, and `Age of Business` due to rank deficiency.
