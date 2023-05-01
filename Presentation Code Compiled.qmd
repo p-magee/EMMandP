@@ -265,6 +265,25 @@ err_class[which.min(err_class)]
 
 Optimal *k* is 39 with an error rate of 32.06%
 
+```{r}
+# 10 K-fold CV on KNN
+
+library(caret)
+set.seed(1234)
+
+trControl <- trainControl(method  = "cv",
+                          number  = 10)
+
+fit <- train(type_mod ~ .,
+             method = "knn",
+             tuneGrid = expand.grid(k = 1:50),
+             trControl = trControl,
+             metric = "Accuracy",
+             data = ppp_k)
+
+fit$results %>% arrange(desc(Accuracy)) # first row is highest accuracy 
+```
+
 ### LDA and QDA
 
 ```{r lda}
@@ -386,11 +405,11 @@ Our tree produced a training OOB Error Rate of 24.36%.
 
 ### Classification
 
-| Method | Error Rate |
-|--------|------------|
-| KNN    | 32.06%     |
-| LDA    | 35.76%     |
-| QDA\*  | 55.88%     |
-| Tree   | 24.36%     |
+| Method | Error Rate (using K-fold CV, K = 10) |
+|--------|--------------------------------------|
+| KNN    | 32.3% with KNN = 47                  |
+| LDA    | 35.76%                               |
+| QDA\*  | 55.88%                               |
+| Tree   | 24.36%                               |
 
 \*Removed `Race`, `Industry`, and `Age of Business` due to rank deficiency.
